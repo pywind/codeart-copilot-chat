@@ -305,5 +305,8 @@
 	"codeart.studio.command.refreshCopilotAgentSessions": "Refresh Copilot Agent Sessions",
 	"codeart.studio.command.openCopilotAgentSessionsInBrowser": "Open in browser",
 	"copilot.tools.runSubagent.name": "Run Subagent",
-	"copilot.tools.runSubagent.description": "Runs a task within an isolated subagent context. Enables efficient organization of tasks and context window management."
+        "copilot.tools.runSubagent.description": "Runs a task within an isolated subagent context. Enables efficient organization of tasks and context window management.",
+        "myai.config.enabled": "Enable the MyAI integration.",
+        "myai.config.endpoint": "Endpoint URL for the MyAI service.",
+        "myai.config.defaultModel": "Default model identifier to request from MyAI."
 }

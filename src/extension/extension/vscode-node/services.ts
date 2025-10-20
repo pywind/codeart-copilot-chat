@@ -56,9 +56,6 @@ import { ISettingsEditorSearchService } from '../../../platform/settingsEditor/c
 import { IExperimentationService, NullExperimentationService } from '../../../platform/telemetry/common/nullExperimentationService';
 import { NullTelemetryService } from '../../../platform/telemetry/common/nullTelemetryService';
 import { ITelemetryService, ITelemetryUserConfig, TelemetryUserConfigImpl } from '../../../platform/telemetry/common/telemetry';
-import { APP_INSIGHTS_KEY_ENHANCED, APP_INSIGHTS_KEY_STANDARD } from '../../../platform/telemetry/node/azureInsights';
-import { MicrosoftExperimentationService } from '../../../platform/telemetry/vscode-node/microsoftExperimentationService';
-import { TelemetryService } from '../../../platform/telemetry/vscode-node/telemetryServiceImpl';
 import { IWorkspaceMutationManager } from '../../../platform/testing/common/workspaceMutationManager';
 import { ISetupTestsDetector, SetupTestsDetector } from '../../../platform/testing/node/setupTestDetector';
 import { ITestDepsResolver, TestDepsResolver } from '../../../platform/testing/node/testDepsResolver';
@@ -80,7 +77,6 @@ import { INewWorkspacePreviewContentManager, NewWorkspacePreviewContentManagerIm
 import { ITestGenInfoStorage, TestGenInfoStorage } from '../../intents/node/testIntent/testInfoStorage';
 import { LanguageContextProviderService } from '../../languageContextProvider/vscode-node/languageContextProviderService';
 import { ILinkifyService, LinkifyService } from '../../linkify/common/linkifyService';
-import { collectFetcherTelemetry } from '../../log/vscode-node/loggingActions';
 import { DebugCommandToConfigConverter, IDebugCommandToConfigConverter } from '../../onboardDebug/node/commandToConfigConverter';
 import { DebuggableCommandIdentifier, IDebuggableCommandIdentifier } from '../../onboardDebug/node/debuggableCommandIdentifier';
 import { ILanguageToolsProvider, LanguageToolsProvider } from '../../onboardDebug/node/languageToolsProvider';
@@ -131,21 +127,18 @@ export function registerServices(builder: IInstantiationServiceBuilder, extensio
 	builder.define(IImageService, new SyncDescriptor(ImageServiceImpl));
 
 	builder.define(ITelemetryUserConfig, new SyncDescriptor(TelemetryUserConfigImpl, [undefined, undefined]));
-	const internalAIKey = extensionContext.extension.packageJSON.internalAIKey ?? '';
-	const internalLargeEventAIKey = extensionContext.extension.packageJSON.internalLargeStorageAriaKey ?? '';
-	const ariaKey = extensionContext.extension.packageJSON.ariaKey ?? '';
-	if (isTestMode || isScenarioAutomation) {
-		setupTelemetry(builder, extensionContext, internalAIKey, internalLargeEventAIKey, ariaKey);
-		// If we're in testing mode, then most code will be called from an actual test,
-		// and not from here. However, some objects will capture the `accessor` we pass
-		// here and then re-use it later. This is particularly the case for those objects
-		// which implement VSCode interfaces so can't be changed to take `accessor` in their
-		// method parameters.
-		builder.define(ICopilotTokenManager, getOrCreateTestingCopilotTokenManager());
-	} else {
-		setupTelemetry(builder, extensionContext, internalAIKey, internalLargeEventAIKey, ariaKey);
-		builder.define(ICopilotTokenManager, new SyncDescriptor(VSCodeCopilotTokenManager));
-	}
+        if (isTestMode || isScenarioAutomation) {
+                setupTelemetry(builder, extensionContext);
+                // If we're in testing mode, then most code will be called from an actual test,
+                // and not from here. However, some objects will capture the `accessor` we pass
+                // here and then re-use it later. This is particularly the case for those objects
+                // which implement VSCode interfaces so can't be changed to take `accessor` in their
+                // method parameters.
+                builder.define(ICopilotTokenManager, getOrCreateTestingCopilotTokenManager());
+        } else {
+                setupTelemetry(builder, extensionContext);
+                builder.define(ICopilotTokenManager, new SyncDescriptor(VSCodeCopilotTokenManager));
+        }
 
 	if (isScenarioAutomation) {
 		builder.define(IAuthenticationService, new SyncDescriptor(StaticGitHubAuthenticationService, [getStaticGitHubToken]));
@@ -154,7 +147,7 @@ export function registerServices(builder: IInstantiationServiceBuilder, extensio
 	}
 
 	builder.define(ITestGenInfoStorage, new SyncDescriptor(TestGenInfoStorage)); // Used for test generation (/tests intent)
-	builder.define(IEndpointProvider, new SyncDescriptor(ProductionEndpointProvider, [collectFetcherTelemetry]));
+	builder.define(IEndpointProvider, new SyncDescriptor(ProductionEndpointProvider, [undefined]));
 	builder.define(IParserService, new SyncDescriptor(ParserServiceImpl, [/*useWorker*/ true]));
 	builder.define(IIntentService, new SyncDescriptor(IntentService));
 	builder.define(IIgnoreService, new SyncDescriptor(VsCodeIgnoreService));
@@ -199,30 +192,11 @@ export function registerServices(builder: IInstantiationServiceBuilder, extensio
 	builder.define(IGithubAvailableEmbeddingTypesService, new SyncDescriptor(GithubAvailableEmbeddingTypesService));
 }
 
-function setupMSFTExperimentationService(builder: IInstantiationServiceBuilder, extensionContext: ExtensionContext) {
-	if (ExtensionMode.Production === extensionContext.extensionMode && !isScenarioAutomation) {
-		// Intitiate the experimentation service
-		builder.define(IExperimentationService, new SyncDescriptor(MicrosoftExperimentationService));
-	} else {
-		builder.define(IExperimentationService, new NullExperimentationService());
-	}
+function setupMSFTExperimentationService(builder: IInstantiationServiceBuilder) {
+        builder.define(IExperimentationService, new NullExperimentationService());
 }
 
-function setupTelemetry(builder: IInstantiationServiceBuilder, extensionContext: ExtensionContext, internalAIKey: string, internalLargeEventAIKey: string, externalAIKey: string) {
-
-	if (ExtensionMode.Production === extensionContext.extensionMode && !isScenarioAutomation) {
-		builder.define(ITelemetryService, new SyncDescriptor(TelemetryService, [
-			extensionContext.extension.packageJSON.name,
-			internalAIKey,
-			internalLargeEventAIKey,
-			externalAIKey,
-			APP_INSIGHTS_KEY_STANDARD,
-			APP_INSIGHTS_KEY_ENHANCED,
-		]));
-	} else {
-		// If we're developing or testing we don't want telemetry to be sent, so we turn it off
-		builder.define(ITelemetryService, new NullTelemetryService());
-	}
-
-	setupMSFTExperimentationService(builder, extensionContext);
+function setupTelemetry(builder: IInstantiationServiceBuilder, extensionContext: ExtensionContext) {
+        builder.define(ITelemetryService, new NullTelemetryService());
+        setupMSFTExperimentationService(builder);
 }

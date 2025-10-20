@@ -52,7 +52,8 @@ import { LanguageFeaturesServiceImpl } from '../../../platform/languages/vscode/
 import { ILogService, LogServiceImpl } from '../../../platform/log/common/logService';
 import { NewOutputChannelLogTarget } from '../../../platform/log/vscode/outputChannelLogTarget';
 import { EditLogService, IEditLogService } from '../../../platform/multiFileEdit/common/editLogService';
-import { IMultiFileEditInternalTelemetryService, MultiFileEditInternalTelemetryService } from '../../../platform/multiFileEdit/common/multiFileEditQualityTelemetry';
+import { IMultiFileEditInternalTelemetryService } from '../../../platform/multiFileEdit/common/multiFileEditQualityTelemetry';
+import { NullMultiFileEditInternalTelemetryService } from '../../../platform/multiFileEdit/common/nullMultiFileEditTelemetryService';
 import { HeaderContributors, IHeaderContributors } from '../../../platform/networking/common/networking';
 import { AlternativeNotebookContentService, IAlternativeNotebookContentService } from '../../../platform/notebook/common/alternativeContent';
 import { AlternativeNotebookContentEditGenerator, IAlternativeNotebookContentEditGenerator } from '../../../platform/notebook/common/alternativeContentEditGenerator';
@@ -157,7 +158,7 @@ export function registerServices(builder: IInstantiationServiceBuilder, extensio
 	builder.define(IProjectTemplatesIndex, new SyncDescriptor(ProjectTemplatesIndex, [/*useRemoteCache*/ true]));
 	builder.define(IBlockedExtensionService, new SyncDescriptor(BlockedExtensionService));
 	builder.define(IEditLogService, new SyncDescriptor(EditLogService));
-	builder.define(IMultiFileEditInternalTelemetryService, new SyncDescriptor(MultiFileEditInternalTelemetryService));
+	builder.define(IMultiFileEditInternalTelemetryService, new SyncDescriptor(NullMultiFileEditInternalTelemetryService));
 	builder.define(ICustomInstructionsService, new SyncDescriptor(CustomInstructionsService));
 	builder.define(ILaunchConfigService, new SyncDescriptor(LaunchConfigService));
 	builder.define(IHeatmapService, new SyncDescriptor(HeatmapServiceImpl));

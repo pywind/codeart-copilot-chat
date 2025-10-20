@@ -65,7 +65,7 @@ export class TestModelMetadataFetcher extends ModelMetadataFetcher {
 	private readonly cache: SQLiteCache<ModelMetadataRequest, IChatModelInformation[]>;
 
 	constructor(
-		collectFetcherTelemetry: ((accessor: ServicesAccessor) => void) | undefined,
+                collectFetcherTelemetry: ((accessor: ServicesAccessor, error: any) => void) | undefined,
 		_isModelLab: boolean,
 		info: CurrentTestRunInfo | undefined,
 		private readonly _skipModelMetadataCache: boolean = false,

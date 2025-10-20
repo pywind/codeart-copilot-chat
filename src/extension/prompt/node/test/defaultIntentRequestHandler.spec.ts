@@ -14,7 +14,7 @@ import { MockEndpoint } from '../../../../platform/endpoint/test/node/mockEndpoi
 import { IResponseDelta } from '../../../../platform/networking/common/fetch';
 import { IChatEndpoint } from '../../../../platform/networking/common/networking';
 import { ITelemetryService } from '../../../../platform/telemetry/common/telemetry';
-import { SpyingTelemetryService } from '../../../../platform/telemetry/node/spyingTelemetryService';
+import { NullTelemetryService } from '../../../../platform/telemetry/common/nullTelemetryService';
 import { ITestingServicesAccessor } from '../../../../platform/test/node/services';
 import { NullWorkspaceFileIndex } from '../../../../platform/workspaceChunkSearch/node/nullWorkspaceFileIndex';
 import { IWorkspaceFileIndex } from '../../../../platform/workspaceChunkSearch/node/workspaceFileIndex';
@@ -41,7 +41,6 @@ suite('defaultIntentRequestHandler', () => {
 	let response: ExtendedChatResponsePart[];
 	let chatResponse: (string | IResponseDelta[])[] = [];
 	let promptResult: RenderPromptResult | RenderPromptResult[];
-	let telemetry: SpyingTelemetryService;
 	let endpoint: IChatEndpoint;
 	let turnIdCounter = 0;
 	let builtPrompts: IBuildPromptContext[] = [];
@@ -51,9 +50,8 @@ suite('defaultIntentRequestHandler', () => {
 
 	beforeEach(async () => {
 		const services = createExtensionUnitTestingServices();
-		telemetry = new SpyingTelemetryService();
-		chatResponse = [];
-		services.define(ITelemetryService, telemetry);
+                chatResponse = [];
+                services.define(ITelemetryService, new NullTelemetryService());
 		services.define(IChatMLFetcher, new StaticChatMLFetcher(chatResponse));
 		services.define(IWorkspaceFileIndex, new SyncDescriptor(NullWorkspaceFileIndex));
 
@@ -70,19 +68,6 @@ suite('defaultIntentRequestHandler', () => {
 	afterEach(() => {
 		accessor.dispose();
 	});
-
-	const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/g;
-
-	function getDerandomizedTelemetry() {
-		const evts = telemetry.getEvents();
-		return cloneAndChangeWithKey(evts, (e, key) => {
-			if (typeof e === 'string' && uuidRegex.test(e)) {
-				return 'some-uuid';
-			} else if (typeof e === 'number' && typeof key === 'string' && key.startsWith('timeTo')) {
-				return '<duration>';
-			}
-		});
-	}
 
 	class TestIntent implements IIntent {
 		id = 'test';
@@ -168,7 +153,6 @@ suite('defaultIntentRequestHandler', () => {
 		const handler = makeHandler();
 		const result = await handler.getResult();
 		expect(result).to.deep.equal({});
-		expect(getDerandomizedTelemetry()).toMatchSnapshot();
 	});
 
 	test('makes a successful request with a single turn', async () => {
@@ -183,7 +167,6 @@ suite('defaultIntentRequestHandler', () => {
 		expect(result).toMatchSnapshot();
 		// Wait for event loop to finish as we often fire off telemetry without properly awaiting it as it doesn't matter when it is sent
 		await new Promise(setImmediate);
-		expect(getDerandomizedTelemetry()).toMatchSnapshot();
 	});
 
 	test('makes a tool call turn', async () => {
@@ -210,7 +193,6 @@ suite('defaultIntentRequestHandler', () => {
 		expect(result).toMatchSnapshot();
 		// Wait for event loop to finish as we often fire off telemetry without properly awaiting it as it doesn't matter when it is sent
 		await new Promise(setImmediate);
-		expect(getDerandomizedTelemetry()).toMatchSnapshot();
 
 		expect(builtPrompts).toHaveLength(2);
 		expect(builtPrompts[1].toolCallResults).toEqual({ 'tool_call_id__vscode-0': toolResult });
@@ -304,7 +286,6 @@ suite('defaultIntentRequestHandler', () => {
 		expect(response).toMatchSnapshot();
 		// Wait for event loop to finish as we often fire off telemetry without properly awaiting it as it doesn't matter when it is sent
 		await new Promise(setImmediate);
-		expect(getDerandomizedTelemetry()).toMatchSnapshot();
 	});
 
 	test('ChatResult metadata after multiple turns only has tool results from current turn', async () => {
@@ -343,42 +324,3 @@ suite('defaultIntentRequestHandler', () => {
 });
 
 
-function cloneAndChangeWithKey(obj: any, changer: (orig: any, key?: string | number) => any): any {
-	return _cloneAndChangeWithKey(obj, changer, new Set(), undefined);
-}
-
-function _cloneAndChangeWithKey(obj: any, changer: (orig: any, key?: string | number) => any, seen: Set<any>, key: string | number | undefined): any {
-	if (isUndefinedOrNull(obj)) {
-		return obj;
-	}
-
-	const changed = changer(obj, key);
-	if (typeof changed !== 'undefined') {
-		return changed;
-	}
-
-	if (Array.isArray(obj)) {
-		const r1: any[] = [];
-		for (const [i, e] of obj.entries()) {
-			r1.push(_cloneAndChangeWithKey(e, changer, seen, i));
-		}
-		return r1;
-	}
-
-	if (isObject(obj)) {
-		if (seen.has(obj)) {
-			throw new Error('Cannot clone recursive data-structure');
-		}
-		seen.add(obj);
-		const r2 = {};
-		for (const i2 in obj) {
-			if (Object.prototype.hasOwnProperty.call(obj, i2)) {
-				(r2 as any)[i2] = _cloneAndChangeWithKey(obj[i2], changer, seen, i2);
-			}
-		}
-		seen.delete(obj);
-		return r2;
-	}
-
-	return obj;
-}

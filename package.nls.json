@@ -55,17 +55,17 @@
 		]
 	},
 	"github.copilot.viewsWelcome.chatDisabled": {
-		"message": "GitHub Copilot Chat is currently disabled for your account by an organization administrator. Contact an organization administrator to enable chat.\n\n[Learn More](https://docs.github.com/en/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-github-copilot-features-in-your-organization/managing-policies-for-copilot-in-your-organization)",
+		"message": "CodeArt Copilot Chat is currently disabled for your account by an organization administrator. Contact an organization administrator to enable chat.\n\n[Learn More](https://docs.github.com/en/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-github-copilot-features-in-your-organization/managing-policies-for-copilot-in-your-organization)",
 		"comment": [
 			"{Locked='['}",
 			"{Locked='](https://docs.github.com/en/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-github-copilot-features-in-your-organization/managing-policies-for-copilot-in-your-organization)'}"
 		]
 	},
 	"github.copilot.viewsWelcome.switchToReleaseChannel": {
-		"message": "The Pre-Release version of the GitHub Copilot Chat extension is not currently supported in the stable version of VS Code. Please switch to the release version for GitHub Copilot Chat or try VS Code Insiders.\n\n[Switch to Release Version and Reload](command:runCommands?%7B%22commands%22%3A%5B%7B%22command%22%3A%22workbench.extensions.action.switchToRelease%22%2C%22args%22%3A%5B%22GitHub.copilot-chat%22%5D%7D%2C%22workbench.action.reloadWindow%22%5D%7D)\n\n[Switch to VS Code Insiders](https://aka.ms/vscode-insiders)",
+		"message": "The Pre-Release version of the CodeArt Copilot Chat extension is not currently supported in the stable version of VS Code. Please switch to the release version for CodeArt Copilot Chat or try VS Code Insiders.\n\n[Switch to Release Version and Reload](command:runCommands?%7B%22commands%22%3A%5B%7B%22command%22%3A%22workbench.extensions.action.switchToRelease%22%2C%22args%22%3A%5B%22CodeArt.codeart-copilot-chat%22%5D%7D%2C%22workbench.action.reloadWindow%22%5D%7D)\n\n[Switch to VS Code Insiders](https://aka.ms/vscode-insiders)",
 		"comment": [
 			"{Locked='['}",
-			"{Locked='](command:runCommands?%7B%22commands%22%3A%5B%7B%22command%22%3A%22workbench.extensions.action.switchToRelease%22%2C%22args%22%3A%5B%22GitHub.copilot-chat%22%5D%7D%2C%22workbench.action.reloadWindow%22%5D%7D)'}",
+			"{Locked='](command:runCommands?%7B%22commands%22%3A%5B%7B%22command%22%3A%22workbench.extensions.action.switchToRelease%22%2C%22args%22%3A%5B%22CodeArt.codeart-copilot-chat%22%5D%7D%2C%22workbench.action.reloadWindow%22%5D%7D)'}",
 			"{Locked='](https://aka.ms/vscode-insiders)'}"
 		]
 	},

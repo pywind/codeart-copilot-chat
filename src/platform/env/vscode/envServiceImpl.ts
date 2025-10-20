@@ -100,7 +100,7 @@ export class EnvServiceImpl implements IEnvService {
 		return new NameAndVersion('vscode', vscode.version);
 	}
 	getEditorPluginInfo(): NameAndVersion {
-		return new NameAndVersion('copilot-chat', packageJson.version);
+		return new NameAndVersion('codeart-copilot-chat', packageJson.version);
 	}
 
 	openExternal(target: vscode.Uri): Promise<boolean> {

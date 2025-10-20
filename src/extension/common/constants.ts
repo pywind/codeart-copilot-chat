@@ -85,4 +85,4 @@ export function getAgentForIntent(intentId: Intent, location: ChatLocation): { a
 	}
 }
 
-export const EXTENSION_ID = 'GitHub.copilot-chat';
+export const EXTENSION_ID = 'CodeArt.codeart-copilot-chat';

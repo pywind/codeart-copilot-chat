@@ -70,7 +70,7 @@ To get the latest security fixes, please use the latest version of the Copilot e
 
 ## Data and telemetry
 
-The GitHub Copilot Extension for Visual Studio Code collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://privacy.microsoft.com/privacystatement) to learn more. This extension respects the `telemetry.telemetryLevel` setting which you can learn more about at https://code.visualstudio.com/docs/supporting/faq#_how-to-disable-telemetry-reporting.
+This fork disables all telemetry integrations that were present in the original extension. No usage data is collected or transmitted when using this build.
 
 ## Trademarks
 

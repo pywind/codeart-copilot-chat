@@ -21,7 +21,8 @@ import { NullGitDiffService } from '../../../platform/git/common/nullGitDiffServ
 import { NullGitExtensionService } from '../../../platform/git/common/nullGitExtensionService';
 import { ILogService } from '../../../platform/log/common/logService';
 import { EditLogService, IEditLogService } from '../../../platform/multiFileEdit/common/editLogService';
-import { IMultiFileEditInternalTelemetryService, MultiFileEditInternalTelemetryService } from '../../../platform/multiFileEdit/common/multiFileEditQualityTelemetry';
+import { IMultiFileEditInternalTelemetryService } from '../../../platform/multiFileEdit/common/multiFileEditQualityTelemetry';
+import { NullMultiFileEditInternalTelemetryService } from '../../../platform/multiFileEdit/common/nullMultiFileEditTelemetryService';
 import { IAlternativeNotebookContentService } from '../../../platform/notebook/common/alternativeContent';
 import { AlternativeNotebookContentEditGenerator, IAlternativeNotebookContentEditGenerator } from '../../../platform/notebook/common/alternativeContentEditGenerator';
 import { INotebookService } from '../../../platform/notebook/common/notebookService';
@@ -94,7 +95,7 @@ export function createExtensionUnitTestingServices(disposables: Pick<DisposableS
 	testingServiceCollection.define(IToolsService, new SyncDescriptor(TestToolsService, [new Set()]));
 	testingServiceCollection.define(IClaudeCodeSdkService, new SyncDescriptor(MockClaudeCodeSdkService));
 	testingServiceCollection.define(IEditLogService, new SyncDescriptor(EditLogService));
-	testingServiceCollection.define(IMultiFileEditInternalTelemetryService, new SyncDescriptor(MultiFileEditInternalTelemetryService));
+	testingServiceCollection.define(IMultiFileEditInternalTelemetryService, new SyncDescriptor(NullMultiFileEditInternalTelemetryService));
 	testingServiceCollection.define(ICodeMapperService, new SyncDescriptor(CodeMapperService));
 	testingServiceCollection.define(IAlternativeNotebookContentService, new SyncDescriptor(SimulationAlternativeNotebookContentService));
 	testingServiceCollection.define(IAlternativeNotebookContentEditGenerator, new SyncDescriptor(AlternativeNotebookContentEditGenerator));

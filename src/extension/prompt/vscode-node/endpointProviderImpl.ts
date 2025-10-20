@@ -35,7 +35,7 @@ export class ProductionEndpointProvider implements IEndpointProvider {
 	private readonly _modelFetcher: IModelMetadataFetcher;
 
 	constructor(
-		collectFetcherTelemetry: (accessor: ServicesAccessor, error: any) => void,
+                collectFetcherTelemetry: ((accessor: ServicesAccessor, error: any) => void) | undefined,
 		@ICAPIClientService capiClientService: ICAPIClientService,
 		@IFetcherService fetcher: IFetcherService,
 		@IAutomodeService private readonly _autoModeService: IAutomodeService,
@@ -50,7 +50,7 @@ export class ProductionEndpointProvider implements IEndpointProvider {
 	) {
 
 		this._modelFetcher = new ModelMetadataFetcher(
-			collectFetcherTelemetry,
+                        collectFetcherTelemetry,
 			false,
 			fetcher,
 			_requestLogger,

@@ -46,7 +46,8 @@ import { ILanguageDiagnosticsService } from '../../../platform/languages/common/
 import { ILanguageFeaturesService, NoopLanguageFeaturesService } from '../../../platform/languages/common/languageFeaturesService';
 import { LanguageDiagnosticsServiceImpl } from '../../../platform/languages/vscode/languageDiagnosticsServiceImpl';
 import { EditLogService, IEditLogService } from '../../../platform/multiFileEdit/common/editLogService';
-import { IMultiFileEditInternalTelemetryService, MultiFileEditInternalTelemetryService } from '../../../platform/multiFileEdit/common/multiFileEditQualityTelemetry';
+import { IMultiFileEditInternalTelemetryService } from '../../../platform/multiFileEdit/common/multiFileEditQualityTelemetry';
+import { NullMultiFileEditInternalTelemetryService } from '../../../platform/multiFileEdit/common/nullMultiFileEditTelemetryService';
 import { ICompletionsFetchService } from '../../../platform/nesFetch/common/completionsFetchService';
 import { CompletionsFetchService } from '../../../platform/nesFetch/node/completionsFetchServiceImpl';
 import { IAlternativeNotebookContentService } from '../../../platform/notebook/common/alternativeContent';
@@ -156,7 +157,7 @@ export function createExtensionTestingServices(): TestingServiceCollection {
 	testingServiceCollection.define(IDebuggableCommandIdentifier, new SyncDescriptor(DebuggableCommandIdentifier));
 	testingServiceCollection.define(ILanguageToolsProvider, new SyncDescriptor(LanguageToolsProvider));
 	testingServiceCollection.define(IEditLogService, new SyncDescriptor(EditLogService));
-	testingServiceCollection.define(IMultiFileEditInternalTelemetryService, new SyncDescriptor(MultiFileEditInternalTelemetryService));
+	testingServiceCollection.define(IMultiFileEditInternalTelemetryService, new SyncDescriptor(NullMultiFileEditInternalTelemetryService));
 	testingServiceCollection.define(ICodeMapperService, new SyncDescriptor(CodeMapperService));
 	testingServiceCollection.define(IAlternativeNotebookContentService, new SyncDescriptor(MockAlternativeNotebookContentService));
 	testingServiceCollection.define(IAlternativeNotebookContentEditGenerator, new SyncDescriptor(AlternativeNotebookContentEditGenerator));

@@ -8,6 +8,7 @@ import { resolve } from '../../../util/vs/base/common/path';
 import { baseActivate } from '../vscode/extension';
 import { vscodeNodeContributions } from './contributions';
 import { registerServices } from './services';
+import { ensureMyAIConfigured, hydrateApiKey } from './setupGuard';
 
 // ###############################################################################################
 // ###                                                                                         ###
@@ -32,12 +33,18 @@ function configureDevPackages() {
 }
 //#endregion
 
-export function activate(context: ExtensionContext, forceActivation?: boolean) {
-	return baseActivate({
-		context,
-		registerServices,
-		contributions: vscodeNodeContributions,
-		configureDevPackages,
-		forceActivation
+export async function activate(context: ExtensionContext, forceActivation?: boolean) {
+        await hydrateApiKey(context);
+        const configured = await ensureMyAIConfigured(context);
+        if (!configured) {
+                return context;
+        }
+
+        return baseActivate({
+                context,
+                registerServices,
+                contributions: vscodeNodeContributions,
+                configureDevPackages,
+                forceActivation
 	});
 }

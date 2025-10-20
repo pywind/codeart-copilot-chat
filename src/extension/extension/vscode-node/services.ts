@@ -6,10 +6,9 @@
 import { ExtensionContext, ExtensionMode } from 'vscode';
 import { IAuthenticationService } from '../../../platform/authentication/common/authentication';
 import { ICopilotTokenManager } from '../../../platform/authentication/common/copilotTokenManager';
-import { StaticGitHubAuthenticationService } from '../../../platform/authentication/common/staticGitHubAuthenticationService';
-import { getOrCreateTestingCopilotTokenManager, getStaticGitHubToken } from '../../../platform/authentication/node/copilotTokenManager';
-import { AuthenticationService } from '../../../platform/authentication/vscode-node/authenticationService';
-import { VSCodeCopilotTokenManager } from '../../../platform/authentication/vscode-node/copilotTokenManager';
+import { getOrCreateTestingCopilotTokenManager } from '../../../platform/authentication/node/copilotTokenManager';
+import { ApiKeyAuthenticationService } from '../../../platform/authentication/vscode-node/apiKeyAuthenticationService';
+import { ApiKeyCopilotTokenManager } from '../../../platform/authentication/vscode-node/apiKeyCopilotTokenManager';
 import { IChatAgentService } from '../../../platform/chat/common/chatAgents';
 import { IChatMLFetcher } from '../../../platform/chat/common/chatMLFetcher';
 import { IChunkingEndpointClient } from '../../../platform/chunking/common/chunkingEndpointClient';
@@ -137,14 +136,10 @@ export function registerServices(builder: IInstantiationServiceBuilder, extensio
                 builder.define(ICopilotTokenManager, getOrCreateTestingCopilotTokenManager());
         } else {
                 setupTelemetry(builder, extensionContext);
-                builder.define(ICopilotTokenManager, new SyncDescriptor(VSCodeCopilotTokenManager));
+                builder.define(ICopilotTokenManager, new SyncDescriptor(ApiKeyCopilotTokenManager));
         }
 
-	if (isScenarioAutomation) {
-		builder.define(IAuthenticationService, new SyncDescriptor(StaticGitHubAuthenticationService, [getStaticGitHubToken]));
-	} else {
-		builder.define(IAuthenticationService, new SyncDescriptor(AuthenticationService));
-	}
+        builder.define(IAuthenticationService, new SyncDescriptor(ApiKeyAuthenticationService));
 
 	builder.define(ITestGenInfoStorage, new SyncDescriptor(TestGenInfoStorage)); // Used for test generation (/tests intent)
 	builder.define(IEndpointProvider, new SyncDescriptor(ProductionEndpointProvider, [undefined]));

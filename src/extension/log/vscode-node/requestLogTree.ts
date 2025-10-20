@@ -502,7 +502,7 @@ export class RequestLogTree extends Disposable implements IExtensionContribution
 
 		this._register(vscode.commands.registerCommand('github.copilot.debug.showOutputChannel', async () => {
 			// Yes this is the correct auto-generated command for our output channel
-			await vscode.commands.executeCommand(`workbench.action.output.show.CodeArt.codeart-copilot-chat.${OutputChannelName}`);
+			await vscode.commands.executeCommand(`workbench.action.output.show.codeart-collective.codeart-studio-chat.${OutputChannelName}`);
 		}));
 	}
 }

@@ -1,7 +1,7 @@
 {
-\t"name": "codeart-copilot-chat",
-\t"displayName": "CodeArt Copilot Chat",
-	"description": "AI chat features powered by Copilot",
+\t"name": "codeart-studio-chat",
+\t"displayName": "CodeArt Studio Chat",
+        "description": "Community-branded Copilot chat experience for VS Code",
 	"version": "0.33.0",
 	"build": "1",
 	"internalAIKey": "1058ec22-3c95-4951-8443-f26c1f325911",
@@ -10,30 +10,33 @@
 	"internalLargeStorageAriaKey": "ec712b3202c5462fb6877acae7f1f9d7-c19ad55e-3e3c-4f99-984b-827f6d95bd9e-6917",
 	"ariaKey": "0c6ae279ed8443289764825290e4f9e2-1a736e7c-1324-4338-be46-fc2a58ae4d14-7255",
 	"buildType": "dev",
-\t"publisher": "CodeArt",
-	"homepage": "https://github.com/features/copilot?editor=vscode",
-	"license": "SEE LICENSE IN LICENSE.txt",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/microsoft/vscode-copilot-chat"
-	},
-	"bugs": {
-		"url": "https://github.com/microsoft/vscode/issues"
-	},
-	"qna": "https://github.com/github-community/community/discussions/categories/copilot",
-	"icon": "assets/copilot.png",
-	"pricing": "Trial",
-	"engines": {
-		"vscode": "^1.106.0",
-		"npm": ">=9.0.0",
-		"node": ">=22.14.0"
-	},
-	"categories": [
-		"AI",
-		"Chat",
-		"Programming Languages",
-		"Machine Learning"
-	],
+\t"publisher": "codeart-collective",
+        "homepage": "https://github.com/codeart-ai/codeart-copilot-chat",
+        "license": "SEE LICENSE IN LICENSE.txt",
+        "repository": {
+                "type": "git",
+                "url": "https://github.com/codeart-ai/codeart-copilot-chat"
+        },
+        "bugs": {
+                "url": "https://github.com/codeart-ai/codeart-copilot-chat/issues"
+        },
+        "qna": "https://github.com/codeart-ai/codeart-copilot-chat/discussions",
+        "icon": "assets/copilot.png",
+        "pricing": "Trial",
+        "engines": {
+                "vscode": "^1.106.0",
+                "npm": ">=9.0.0",
+                "node": ">=22.14.0"
+        },
+        "categories": [
+                "AI",
+                "Productivity",
+                "Chat"
+        ],
+        "extensionKind": [
+                "workspace",
+                "ui"
+        ],
 	"keywords": [
 		"ai",
 		"openai",
@@ -56,28 +59,6 @@
 		"java",
 		"kotlin",
 		"co-pilot"
-	],
-	"badges": [
-		{
-			"url": "https://img.shields.io/badge/GitHub%20Copilot-Subscription%20Required-orange",
-			"href": "https://github.com/github-copilot/signup?editor=vscode",
-			"description": "%github.copilot.badge.signUp%"
-		},
-		{
-			"url": "https://img.shields.io/github/stars/github/copilot-docs?style=social",
-			"href": "https://github.com/github/copilot-docs",
-			"description": "%github.copilot.badge.star%"
-		},
-		{
-			"url": "https://img.shields.io/youtube/channel/views/UC7c3Kb6jYCRj4JOHHZTxKsQ?style=social",
-			"href": "https://www.youtube.com/@GitHub/search?query=copilot",
-			"description": "%github.copilot.badge.youtube%"
-		},
-		{
-			"url": "https://img.shields.io/twitter/follow/github?style=social",
-			"href": "https://twitter.com/github",
-			"description": "%github.copilot.badge.twitter%"
-		}
 	],
 	"activationEvents": [
 		"onStartupFinished",
@@ -505,10 +486,10 @@
 			},
 			{
 				"name": "copilot_createNewWorkspace",
-				"displayName": "%github.copilot.tools.createNewWorkspace.name%",
+				"displayName": "%codeart.studio.tools.createNewWorkspace.name%",
 				"toolReferenceName": "newWorkspace",
 				"icon": "$(new-folder)",
-				"userDescription": "%github.copilot.tools.createNewWorkspace.userDescription%",
+				"userDescription": "%codeart.studio.tools.createNewWorkspace.userDescription%",
 				"when": "config.github.copilot.chat.newWorkspaceCreation.enabled",
 				"modelDescription": "Get comprehensive setup steps to help the user create complete project structures in a VS Code workspace. This tool is designed for full project initialization and scaffolding, not for creating individual files.\n\nWhen to use this tool:\n- User wants to create a new complete project from scratch\n- Setting up entire project frameworks (TypeScript projects, React apps, Node.js servers, etc.)\n- Initializing Model Context Protocol (MCP) servers with full structure\n- Creating VS Code extensions with proper scaffolding\n- Setting up Next.js, Vite, or other framework-based projects\n- User asks for \"new project\", \"create a workspace\", \"set up a [framework] project\"\n- Need to establish complete development environment with dependencies, config files, and folder structure\n\nWhen NOT to use this tool:\n- Creating single files or small code snippets\n- Adding individual files to existing projects\n- Making modifications to existing codebases\n- User asks to \"create a file\" or \"add a component\"\n- Simple code examples or demonstrations\n- Debugging or fixing existing code\n\nThis tool provides complete project setup including:\n- Folder structure creation\n- Package.json and dependency management\n- Configuration files (tsconfig, eslint, etc.)\n- Initial boilerplate code\n- Development environment setup\n- Build and run instructions\n\nUse other file creation tools for individual files within existing projects.",
 				"inputSchema": {
@@ -530,7 +511,7 @@
 			},
 			{
 				"name": "copilot_getProjectSetupInfo",
-				"displayName": "%github.copilot.tools.getProjectSetupInfo.name%",
+				"displayName": "%codeart.studio.tools.getProjectSetupInfo.name%",
 				"when": "config.github.copilot.chat.newWorkspaceCreation.enabled",
 				"toolReferenceName": "getProjectSetupInfo",
 				"modelDescription": "Do not call this tool without first calling the tool to create a workspace. This tool provides a project setup information for a Visual Studio Code workspace based on a project type and programming language.",
@@ -1022,17 +1003,17 @@
 			{
 				"name": "copilot_getSearchResults",
 				"toolReferenceName": "searchResults",
-				"displayName": "%github.copilot.tools.searchResults.name%",
+				"displayName": "%codeart.studio.tools.searchResults.name%",
 				"icon": "$(search)",
-				"userDescription": "%github.copilot.tools.searchResults.description%",
+				"userDescription": "%codeart.studio.tools.searchResults.description%",
 				"modelDescription": "The results from the search view"
 			},
 			{
 				"name": "copilot_githubRepo",
 				"toolReferenceName": "githubRepo",
-				"displayName": "%github.copilot.tools.githubRepo.name%",
+				"displayName": "%codeart.studio.tools.githubRepo.name%",
 				"modelDescription": "Searches a GitHub repository for relevant source code snippets. Only use this tool if the user is very clearly asking for code snippets from a specific GitHub repository. Do not use this tool for Github repos that the user has open in their workspace.",
-				"userDescription": "%github.copilot.tools.githubRepo.userDescription%",
+				"userDescription": "%codeart.studio.tools.githubRepo.userDescription%",
 				"icon": "$(repo)",
 				"canBeReferencedInPrompt": true,
 				"inputSchema": {
@@ -1642,17 +1623,17 @@
 			{
 				"vendor": "azure",
 				"displayName": "Azure",
-				"managementCommand": "github.copilot.chat.manageBYOK"
+				"managementCommand": "codeart.studio.chat.manageBYOK"
 			},
 			{
 				"vendor": "anthropic",
 				"displayName": "Anthropic",
-				"managementCommand": "github.copilot.chat.manageBYOK"
+				"managementCommand": "codeart.studio.chat.manageBYOK"
 			},
 			{
 				"vendor": "xai",
 				"displayName": "xAI",
-				"managementCommand": "github.copilot.chat.manageBYOK"
+				"managementCommand": "codeart.studio.chat.manageBYOK"
 			},
 			{
 				"vendor": "ollama",
@@ -1661,27 +1642,27 @@
 			{
 				"vendor": "openai",
 				"displayName": "OpenAI",
-				"managementCommand": "github.copilot.chat.manageBYOK"
+				"managementCommand": "codeart.studio.chat.manageBYOK"
 			},
 			{
 				"vendor": "gemini",
 				"displayName": "Google",
-				"managementCommand": "github.copilot.chat.manageBYOK"
+				"managementCommand": "codeart.studio.chat.manageBYOK"
 			},
 			{
 				"vendor": "groq",
 				"displayName": "Groq",
-				"managementCommand": "github.copilot.chat.manageBYOK"
+				"managementCommand": "codeart.studio.chat.manageBYOK"
 			},
 			{
 				"vendor": "openrouter",
 				"displayName": "OpenRouter",
-				"managementCommand": "github.copilot.chat.manageBYOK"
+				"managementCommand": "codeart.studio.chat.manageBYOK"
 			},
 			{
 				"vendor": "customoai",
 				"displayName": "OpenAI Compatible",
-				"managementCommand": "github.copilot.chat.manageBYOK"
+				"managementCommand": "codeart.studio.chat.manageBYOK"
 			}
 		],
 		"interactiveSession": [
@@ -1696,539 +1677,539 @@
 			{
 				"view": "debug",
 				"when": "github.copilot-chat.activated",
-				"contents": "%github.copilot.viewsWelcome.debug%"
+				"contents": "%codeart.studio.viewsWelcome.debug%"
 			}
 		],
 		"chatViewsWelcome": [
 			{
 				"icon": "$(copilot-large)",
-				"title": "Ask Copilot",
-				"content": "%github.copilot.viewsWelcome.signIn%",
+				"title": "Ask CodeArt Studio",
+				"content": "%codeart.studio.viewsWelcome.signIn%",
 				"when": "!github.copilot-chat.activated && !github.copilot.offline && !github.copilot.interactiveSession.individual.expired && !github.copilot.interactiveSession.enterprise.disabled && !github.copilot.interactiveSession.contactSupport && !github.copilot.interactiveSession.chatDisabled && !github.copilot.interactiveSession.switchToReleaseChannel"
 			},
 			{
 				"icon": "$(copilot-large)",
-				"title": "Ask Copilot",
-				"content": "%github.copilot.viewsWelcome.individual.expired%",
+				"title": "Ask CodeArt Studio",
+				"content": "%codeart.studio.viewsWelcome.individual.expired%",
 				"when": "github.copilot.interactiveSession.individual.expired"
 			},
 			{
 				"icon": "$(copilot-large)",
-				"title": "Ask Copilot",
-				"content": "%github.copilot.viewsWelcome.enterprise%",
+				"title": "Ask CodeArt Studio",
+				"content": "%codeart.studio.viewsWelcome.enterprise%",
 				"when": "github.copilot.interactiveSession.enterprise.disabled"
 			},
 			{
 				"icon": "$(copilot-large)",
-				"title": "Ask Copilot",
-				"content": "%github.copilot.viewsWelcome.offline%",
+				"title": "Ask CodeArt Studio",
+				"content": "%codeart.studio.viewsWelcome.offline%",
 				"when": "github.copilot.offline"
 			},
 			{
 				"icon": "$(copilot-large)",
-				"title": "Ask Copilot",
-				"content": "%github.copilot.viewsWelcome.contactSupport%",
+				"title": "Ask CodeArt Studio",
+				"content": "%codeart.studio.viewsWelcome.contactSupport%",
 				"when": "github.copilot.interactiveSession.contactSupport"
 			},
 			{
 				"icon": "$(copilot-large)",
-				"title": "Ask Copilot",
-				"content": "%github.copilot.viewsWelcome.chatDisabled%",
+				"title": "Ask CodeArt Studio",
+				"content": "%codeart.studio.viewsWelcome.chatDisabled%",
 				"when": "github.copilot.interactiveSession.chatDisabled"
 			},
 			{
 				"icon": "$(copilot-large)",
-				"title": "Ask Copilot",
-				"content": "%github.copilot.viewsWelcome.switchToReleaseChannel%",
+				"title": "Ask CodeArt Studio",
+				"content": "%codeart.studio.viewsWelcome.switchToReleaseChannel%",
 				"when": "github.copilot.interactiveSession.switchToReleaseChannel"
 			}
 		],
 		"commands": [
 			{
-				"command": "github.copilot.claude.sessions.refresh",
-				"title": "%github.copilot.command.refreshClaudeCodeSessions%",
+				"command": "codeart.studio.claude.sessions.refresh",
+				"title": "%codeart.studio.command.refreshClaudeCodeSessions%",
 				"icon": "$(refresh)",
 				"category": "Claude Code"
 			},
 			{
-				"command": "github.copilot.cli.sessions.refresh",
+				"command": "codeart.studio.cli.sessions.refresh",
 				"title": "Refresh Copilot CLI Agent Sessions",
 				"icon": "$(refresh)",
-				"category": "Copilot CLI"
+				"category": "CodeArt CLI"
 			},
 			{
-				"command": "github.copilot.cli.sessions.delete",
+				"command": "codeart.studio.cli.sessions.delete",
 				"title": "Delete Copilot CLI Agent Session",
 				"icon": "$(close)",
-				"category": "Copilot CLI"
+				"category": "CodeArt CLI"
 			},
 			{
-				"command": "github.copilot.cli.sessions.resumeInTerminal",
+				"command": "codeart.studio.cli.sessions.resumeInTerminal",
 				"title": "Resume Agent Session in Terminal",
 				"icon": "$(terminal)",
-				"category": "Copilot CLI"
+				"category": "CodeArt CLI"
 			},
 			{
-				"command": "github.copilot.cli.sessions.newTerminalSession",
+				"command": "codeart.studio.cli.sessions.newTerminalSession",
 				"title": "New Agent Session in Terminal",
 				"icon": "$(terminal)",
-				"category": "Copilot CLI"
+				"category": "CodeArt CLI"
 			},
 			{
-				"command": "github.copilot.chat.replay",
+				"command": "codeart.studio.chat.replay",
 				"title": "Start Chat Replay",
 				"icon": "$(debug-line-by-line)",
 				"enablement": "resourceLangId == chatReplay && !inDebugMode"
 			},
 			{
-				"command": "github.copilot.chat.replay.enableWorkspaceEditTracing",
-				"title": "%github.copilot.command.enableEditTracing%",
+				"command": "codeart.studio.chat.replay.enableWorkspaceEditTracing",
+				"title": "%codeart.studio.command.enableEditTracing%",
 				"category": "Developer",
 				"enablement": "!github.copilot.chat.replay.workspaceEditTracing"
 			},
 			{
-				"command": "github.copilot.chat.replay.disableWorkspaceEditTracing",
-				"title": "%github.copilot.command.disableEditTracing%",
+				"command": "codeart.studio.chat.replay.disableWorkspaceEditTracing",
+				"title": "%codeart.studio.command.disableEditTracing%",
 				"category": "Developer",
 				"enablement": "github.copilot.chat.replay.workspaceEditTracing"
 			},
 			{
-				"command": "github.copilot.chat.explain",
-				"title": "%github.copilot.command.explainThis%",
+				"command": "codeart.studio.chat.explain",
+				"title": "%codeart.studio.command.explainThis%",
 				"enablement": "!github.copilot.interactiveSession.disabled",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.explain.palette",
-				"title": "%github.copilot.command.explainThis%",
+				"command": "codeart.studio.chat.explain.palette",
+				"title": "%codeart.studio.command.explainThis%",
 				"enablement": "!github.copilot.interactiveSession.disabled && !editorReadonly",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review",
-				"title": "%github.copilot.command.reviewAndComment%",
+				"command": "codeart.studio.chat.review",
+				"title": "%codeart.studio.command.reviewAndComment%",
 				"enablement": "config.github.copilot.chat.reviewSelection.enabled && !github.copilot.interactiveSession.disabled",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.apply",
-				"title": "%github.copilot.command.applyReviewSuggestion%",
+				"command": "codeart.studio.chat.review.apply",
+				"title": "%codeart.studio.command.applyReviewSuggestion%",
 				"icon": "$(sparkle)",
 				"enablement": "commentThread =~ /hasSuggestion/",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.applyAndNext",
-				"title": "%github.copilot.command.applyReviewSuggestionAndNext%",
+				"command": "codeart.studio.chat.review.applyAndNext",
+				"title": "%codeart.studio.command.applyReviewSuggestionAndNext%",
 				"icon": "$(sparkle)",
 				"enablement": "commentThread =~ /hasSuggestion/",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.discard",
-				"title": "%github.copilot.command.discardReviewSuggestion%",
+				"command": "codeart.studio.chat.review.discard",
+				"title": "%codeart.studio.command.discardReviewSuggestion%",
 				"icon": "$(close)",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.discardAndNext",
-				"title": "%github.copilot.command.discardReviewSuggestionAndNext%",
+				"command": "codeart.studio.chat.review.discardAndNext",
+				"title": "%codeart.studio.command.discardReviewSuggestionAndNext%",
 				"icon": "$(close)",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.discardAll",
-				"title": "%github.copilot.command.discardAllReviewSuggestion%",
+				"command": "codeart.studio.chat.review.discardAll",
+				"title": "%codeart.studio.command.discardAllReviewSuggestion%",
 				"icon": "$(close-all)",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.stagedChanges",
-				"title": "%github.copilot.command.reviewStagedChanges%",
+				"command": "codeart.studio.chat.review.stagedChanges",
+				"title": "%codeart.studio.command.reviewStagedChanges%",
 				"icon": "$(code-review)",
 				"enablement": "github.copilot.chat.reviewDiff.enabled && !github.copilot.interactiveSession.disabled",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.unstagedChanges",
-				"title": "%github.copilot.command.reviewUnstagedChanges%",
+				"command": "codeart.studio.chat.review.unstagedChanges",
+				"title": "%codeart.studio.command.reviewUnstagedChanges%",
 				"icon": "$(code-review)",
 				"enablement": "github.copilot.chat.reviewDiff.enabled && !github.copilot.interactiveSession.disabled",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.changes",
-				"title": "%github.copilot.command.reviewChanges%",
+				"command": "codeart.studio.chat.review.changes",
+				"title": "%codeart.studio.command.reviewChanges%",
 				"icon": "$(code-review)",
 				"enablement": "github.copilot.chat.reviewDiff.enabled && !github.copilot.interactiveSession.disabled",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.stagedFileChange",
-				"title": "%github.copilot.command.reviewFileChange%",
+				"command": "codeart.studio.chat.review.stagedFileChange",
+				"title": "%codeart.studio.command.reviewFileChange%",
 				"icon": "$(code-review)",
 				"enablement": "github.copilot.chat.reviewDiff.enabled && !github.copilot.interactiveSession.disabled",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.unstagedFileChange",
-				"title": "%github.copilot.command.reviewFileChange%",
+				"command": "codeart.studio.chat.review.unstagedFileChange",
+				"title": "%codeart.studio.command.reviewFileChange%",
 				"icon": "$(code-review)",
 				"enablement": "github.copilot.chat.reviewDiff.enabled && !github.copilot.interactiveSession.disabled",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.previous",
-				"title": "%github.copilot.command.gotoPreviousReviewSuggestion%",
+				"command": "codeart.studio.chat.review.previous",
+				"title": "%codeart.studio.command.gotoPreviousReviewSuggestion%",
 				"icon": "$(arrow-up)",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.next",
-				"title": "%github.copilot.command.gotoNextReviewSuggestion%",
+				"command": "codeart.studio.chat.review.next",
+				"title": "%codeart.studio.command.gotoNextReviewSuggestion%",
 				"icon": "$(arrow-down)",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.continueInInlineChat",
-				"title": "%github.copilot.command.continueReviewInInlineChat%",
+				"command": "codeart.studio.chat.review.continueInInlineChat",
+				"title": "%codeart.studio.command.continueReviewInInlineChat%",
 				"icon": "$(comment-discussion)",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.continueInChat",
-				"title": "%github.copilot.command.continueReviewInChat%",
+				"command": "codeart.studio.chat.review.continueInChat",
+				"title": "%codeart.studio.command.continueReviewInChat%",
 				"icon": "$(comment-discussion)",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.review.markHelpful",
-				"title": "%github.copilot.command.helpfulReviewSuggestion%",
+				"command": "codeart.studio.chat.review.markHelpful",
+				"title": "%codeart.studio.command.helpfulReviewSuggestion%",
 				"icon": "$(thumbsup)",
 				"enablement": "!(commentThread =~ /markedAsHelpful/)",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.openUserPreferences",
-				"title": "%github.copilot.command.openUserPreferences%",
+				"command": "codeart.studio.chat.openUserPreferences",
+				"title": "%codeart.studio.command.openUserPreferences%",
 				"category": "Chat",
 				"enablement": "config.github.copilot.chat.enableUserPreferences"
 			},
 			{
-				"command": "github.copilot.chat.review.markUnhelpful",
-				"title": "%github.copilot.command.unhelpfulReviewSuggestion%",
+				"command": "codeart.studio.chat.review.markUnhelpful",
+				"title": "%codeart.studio.command.unhelpfulReviewSuggestion%",
 				"icon": "$(thumbsdown)",
 				"enablement": "!(commentThread =~ /markedAsUnhelpful/)",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.generate",
-				"title": "%github.copilot.command.generateThis%",
+				"command": "codeart.studio.chat.generate",
+				"title": "%codeart.studio.command.generateThis%",
 				"icon": "$(sparkle)",
 				"enablement": "!github.copilot.interactiveSession.disabled && !editorReadonly",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.generateDocs",
-				"title": "%github.copilot.command.generateDocs%",
+				"command": "codeart.studio.chat.generateDocs",
+				"title": "%codeart.studio.command.generateDocs%",
 				"enablement": "!github.copilot.interactiveSession.disabled && !editorReadonly",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.generateTests",
-				"title": "%github.copilot.command.generateTests%",
+				"command": "codeart.studio.chat.generateTests",
+				"title": "%codeart.studio.command.generateTests%",
 				"enablement": "!github.copilot.interactiveSession.disabled && !editorReadonly",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.fix",
-				"title": "%github.copilot.command.fixThis%",
+				"command": "codeart.studio.chat.fix",
+				"title": "%codeart.studio.command.fixThis%",
 				"enablement": "!github.copilot.interactiveSession.disabled && !editorReadonly",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.interactiveSession.feedback",
-				"title": "%github.copilot.command.sendChatFeedback%",
+				"command": "codeart.studio.interactiveSession.feedback",
+				"title": "%codeart.studio.command.sendChatFeedback%",
 				"enablement": "github.copilot-chat.activated && !github.copilot.interactiveSession.disabled",
 				"icon": "$(feedback)",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.debug.workbenchState",
-				"title": "%github.copilot.command.logWorkbenchState%",
+				"command": "codeart.studio.debug.workbenchState",
+				"title": "%codeart.studio.command.logWorkbenchState%",
 				"category": "Developer"
 			},
 			{
-				"command": "github.copilot.debug.showChatLogView",
-				"title": "%github.copilot.command.showChatLogView%",
+				"command": "codeart.studio.debug.showChatLogView",
+				"title": "%codeart.studio.command.showChatLogView%",
 				"category": "Developer"
 			},
 			{
-				"command": "github.copilot.debug.showOutputChannel",
-				"title": "%github.copilot.command.showOutputChannel%",
+				"command": "codeart.studio.debug.showOutputChannel",
+				"title": "%codeart.studio.command.showOutputChannel%",
 				"category": "Developer"
 			},
 			{
-				"command": "github.copilot.debug.showContextInspectorView",
-				"title": "%github.copilot.command.showContextInspectorView%",
+				"command": "codeart.studio.debug.showContextInspectorView",
+				"title": "%codeart.studio.command.showContextInspectorView%",
 				"icon": "$(inspect)",
 				"category": "Developer"
 			},
 			{
-				"command": "github.copilot.debug.resetVirtualToolGroups",
-				"title": "%github.copilot.command.resetVirtualToolGroups%",
+				"command": "codeart.studio.debug.resetVirtualToolGroups",
+				"title": "%codeart.studio.command.resetVirtualToolGroups%",
 				"icon": "$(inspect)",
 				"category": "Developer"
 			},
 			{
-				"command": "github.copilot.terminal.explainTerminalLastCommand",
-				"title": "%github.copilot.command.explainTerminalLastCommand%",
+				"command": "codeart.studio.terminal.explainTerminalLastCommand",
+				"title": "%codeart.studio.command.explainTerminalLastCommand%",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.git.generateCommitMessage",
-				"title": "%github.copilot.git.generateCommitMessage%",
+				"command": "codeart.studio.git.generateCommitMessage",
+				"title": "%codeart.studio.git.generateCommitMessage%",
 				"icon": "$(sparkle)",
 				"enablement": "!github.copilot.interactiveSession.disabled",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.git.resolveMergeConflicts",
-				"title": "%github.copilot.git.resolveMergeConflicts%",
+				"command": "codeart.studio.git.resolveMergeConflicts",
+				"title": "%codeart.studio.git.resolveMergeConflicts%",
 				"icon": "$(chat-sparkle)",
 				"enablement": "!github.copilot.interactiveSession.disabled",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.devcontainer.generateDevContainerConfig",
-				"title": "%github.copilot.devcontainer.generateDevContainerConfig%",
+				"command": "codeart.studio.devcontainer.generateDevContainerConfig",
+				"title": "%codeart.studio.devcontainer.generateDevContainerConfig%",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.tests.fixTestFailure",
+				"command": "codeart.studio.tests.fixTestFailure",
 				"icon": "$(sparkle)",
-				"title": "%github.copilot.command.fixTestFailure%",
+				"title": "%codeart.studio.command.fixTestFailure%",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.tests.fixTestFailure.fromInline",
+				"command": "codeart.studio.tests.fixTestFailure.fromInline",
 				"icon": "$(sparkle)",
-				"title": "%github.copilot.command.fixTestFailure%"
+				"title": "%codeart.studio.command.fixTestFailure%"
 			},
 			{
-				"command": "github.copilot.chat.attachFile",
-				"title": "%github.copilot.chat.attachFile%",
+				"command": "codeart.studio.chat.attachFile",
+				"title": "%codeart.studio.chat.attachFile%",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.attachSelection",
-				"title": "%github.copilot.chat.attachSelection%",
+				"command": "codeart.studio.chat.attachSelection",
+				"title": "%codeart.studio.chat.attachSelection%",
 				"icon": "$(comment-discussion)",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.debug.collectDiagnostics",
-				"title": "%github.copilot.command.collectDiagnostics%",
+				"command": "codeart.studio.debug.collectDiagnostics",
+				"title": "%codeart.studio.command.collectDiagnostics%",
 				"category": "Developer"
 			},
 			{
-				"command": "github.copilot.debug.inlineEdit.clearCache",
-				"title": "%github.copilot.command.inlineEdit.clearCache%",
+				"command": "codeart.studio.debug.inlineEdit.clearCache",
+				"title": "%codeart.studio.command.inlineEdit.clearCache%",
 				"category": "Developer"
 			},
 			{
-				"command": "github.copilot.debug.inlineEdit.reportNotebookNESIssue",
-				"title": "%github.copilot.command.inlineEdit.reportNotebookNESIssue%",
+				"command": "codeart.studio.debug.inlineEdit.reportNotebookNESIssue",
+				"title": "%codeart.studio.command.inlineEdit.reportNotebookNESIssue%",
 				"enablement": "config.github.copilot.chat.advanced.notebook.alternativeNESFormat.enabled || github.copilot.chat.enableEnhancedNotebookNES",
 				"category": "Developer"
 			},
 			{
-				"command": "github.copilot.debug.generateSTest",
-				"title": "%github.copilot.command.generateSTest%",
+				"command": "codeart.studio.debug.generateSTest",
+				"title": "%codeart.studio.command.generateSTest%",
 				"enablement": "github.copilot.debugReportFeedback",
 				"category": "Developer"
 			},
 			{
-				"command": "github.copilot.open.walkthrough",
-				"title": "%github.copilot.command.openWalkthrough%",
+				"command": "codeart.studio.open.walkthrough",
+				"title": "%codeart.studio.command.openWalkthrough%",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.debug.generateInlineEditTests",
+				"command": "codeart.studio.debug.generateInlineEditTests",
 				"title": "Generate Inline Edit Tests",
 				"category": "Chat",
 				"enablement": "resourceScheme == 'ccreq'"
 			},
 			{
-				"command": "github.copilot.buildLocalWorkspaceIndex",
-				"title": "%github.copilot.command.buildLocalWorkspaceIndex%",
+				"command": "codeart.studio.buildLocalWorkspaceIndex",
+				"title": "%codeart.studio.command.buildLocalWorkspaceIndex%",
 				"category": "Chat",
 				"enablement": "github.copilot-chat.activated"
 			},
 			{
-				"command": "github.copilot.buildRemoteWorkspaceIndex",
-				"title": "%github.copilot.command.buildRemoteWorkspaceIndex%",
+				"command": "codeart.studio.buildRemoteWorkspaceIndex",
+				"title": "%codeart.studio.command.buildRemoteWorkspaceIndex%",
 				"category": "Chat",
 				"enablement": "github.copilot-chat.activated"
 			},
 			{
-				"command": "github.copilot.report",
+				"command": "codeart.studio.report",
 				"title": "Report Issue",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.rerunWithCopilotDebug",
-				"title": "%github.copilot.command.rerunWithCopilotDebug%",
+				"command": "codeart.studio.chat.rerunWithCopilotDebug",
+				"title": "%codeart.studio.command.rerunWithCopilotDebug%",
 				"category": "Chat"
 			},
 			{
-				"command": "github.copilot.chat.startCopilotDebugCommand",
+				"command": "codeart.studio.chat.startCopilotDebugCommand",
 				"title": "Start Copilot Debug"
 			},
 			{
-				"command": "github.copilot.chat.clearTemporalContext",
+				"command": "codeart.studio.chat.clearTemporalContext",
 				"title": "Clear Temporal Context",
 				"category": "Developer"
 			},
 			{
-				"command": "github.copilot.search.markHelpful",
+				"command": "codeart.studio.search.markHelpful",
 				"title": "Helpful",
 				"icon": "$(thumbsup)",
 				"enablement": "!github.copilot.search.feedback.sent"
 			},
 			{
-				"command": "github.copilot.search.markUnhelpful",
+				"command": "codeart.studio.search.markUnhelpful",
 				"title": "Unhelpful",
 				"icon": "$(thumbsdown)",
 				"enablement": "!github.copilot.search.feedback.sent"
 			},
 			{
-				"command": "github.copilot.search.feedback",
+				"command": "codeart.studio.search.feedback",
 				"title": "Feedback",
 				"icon": "$(feedback)",
 				"enablement": "!github.copilot.search.feedback.sent"
 			},
 			{
-				"command": "github.copilot.chat.debug.showElements",
+				"command": "codeart.studio.chat.debug.showElements",
 				"title": "Show Rendered Elements"
 			},
 			{
-				"command": "github.copilot.chat.debug.hideElements",
+				"command": "codeart.studio.chat.debug.hideElements",
 				"title": "Hide Rendered Elements"
 			},
 			{
-				"command": "github.copilot.chat.debug.showTools",
+				"command": "codeart.studio.chat.debug.showTools",
 				"title": "Show Tools"
 			},
 			{
-				"command": "github.copilot.chat.debug.hideTools",
+				"command": "codeart.studio.chat.debug.hideTools",
 				"title": "Hide Tools"
 			},
 			{
-				"command": "github.copilot.chat.debug.showNesRequests",
+				"command": "codeart.studio.chat.debug.showNesRequests",
 				"title": "Show NES Requests"
 			},
 			{
-				"command": "github.copilot.chat.debug.hideNesRequests",
+				"command": "codeart.studio.chat.debug.hideNesRequests",
 				"title": "Hide NES Requests"
 			},
 			{
-				"command": "github.copilot.chat.debug.showRawRequestBody",
+				"command": "codeart.studio.chat.debug.showRawRequestBody",
 				"title": "Show Raw Request Body"
 			},
 			{
-				"command": "github.copilot.chat.debug.exportLogItem",
+				"command": "codeart.studio.chat.debug.exportLogItem",
 				"title": "Export as...",
 				"icon": "$(export)"
 			},
 			{
-				"command": "github.copilot.chat.debug.exportPromptArchive",
+				"command": "codeart.studio.chat.debug.exportPromptArchive",
 				"title": "Export All as Archive...",
 				"icon": "$(archive)"
 			},
 			{
-				"command": "github.copilot.chat.debug.exportPromptLogsAsJson",
+				"command": "codeart.studio.chat.debug.exportPromptLogsAsJson",
 				"title": "Export All as JSON...",
 				"icon": "$(export)"
 			},
 			{
-				"command": "github.copilot.chat.debug.exportAllPromptLogsAsJson",
+				"command": "codeart.studio.chat.debug.exportAllPromptLogsAsJson",
 				"title": "Export All Prompt Logs as JSON...",
 				"icon": "$(export)"
 			},
 			{
-				"command": "github.copilot.debug.collectWorkspaceIndexDiagnostics",
-				"title": "%github.copilot.command.collectWorkspaceIndexDiagnostics%",
+				"command": "codeart.studio.debug.collectWorkspaceIndexDiagnostics",
+				"title": "%codeart.studio.command.collectWorkspaceIndexDiagnostics%",
 				"category": "Developer"
 			},
 			{
-				"command": "github.copilot.chat.mcp.setup.check",
+				"command": "codeart.studio.chat.mcp.setup.check",
 				"title": "MCP Check: is supported"
 			},
 			{
-				"command": "github.copilot.chat.mcp.setup.validatePackage",
+				"command": "codeart.studio.chat.mcp.setup.validatePackage",
 				"title": "MCP Check: validate package"
 			},
 			{
-				"command": "github.copilot.chat.mcp.setup.flow",
+				"command": "codeart.studio.chat.mcp.setup.flow",
 				"title": "MCP Check: do prompts"
 			},
 			{
-				"command": "github.copilot.chat.generateAltText",
+				"command": "codeart.studio.chat.generateAltText",
 				"title": "Generate/Refine Alt Text"
 			},
 			{
-				"command": "github.copilot.chat.notebook.enableFollowCellExecution",
+				"command": "codeart.studio.chat.notebook.enableFollowCellExecution",
 				"title": "Enable Follow Cell Execution from Chat",
 				"shortTitle": "Follow",
 				"icon": "$(pinned)"
 			},
 			{
-				"command": "github.copilot.chat.notebook.disableFollowCellExecution",
+				"command": "codeart.studio.chat.notebook.disableFollowCellExecution",
 				"title": "Disable Follow Cell Execution from Chat",
 				"shortTitle": "Unfollow",
 				"icon": "$(pinned-dirty)"
 			},
 			{
-				"command": "github.copilot.chat.manageBYOK",
+				"command": "codeart.studio.chat.manageBYOK",
 				"title": "Manage Bring Your Own Key Vendor",
 				"enablement": "false"
 			},
 			{
-				"command": "github.copilot.chat.manageBYOKAPIKey",
+				"command": "codeart.studio.chat.manageBYOKAPIKey",
 				"title": "Manage Bring Your Own Key API Key",
 				"enablement": "false"
 			},
 			{
-				"command": "github.copilot.cloud.sessions.refresh",
-				"title": "%github.copilot.command.refreshCopilotAgentSessions%",
+				"command": "codeart.studio.cloud.sessions.refresh",
+				"title": "%codeart.studio.command.refreshCopilotAgentSessions%",
 				"icon": "$(refresh)"
 			},
 			{
-				"command": "github.copilot.cloud.sessions.openInBrowser",
-				"title": "%github.copilot.command.openCopilotAgentSessionsInBrowser%",
+				"command": "codeart.studio.cloud.sessions.openInBrowser",
+				"title": "%codeart.studio.command.openCopilotAgentSessionsInBrowser%",
 				"icon": "$(link-external)"
 			}
 		],
-		"configuration": [
-			{
-				"title": "CodeArt Copilot Chat",
+                "configuration": [
+                        {
+                                "title": "CodeArt Studio Chat",
 				"id": "stable",
 				"properties": {
 					"github.copilot.chat.codeGeneration.useInstructionFiles": {
 						"type": "boolean",
 						"default": true,
-						"markdownDescription": "%github.copilot.config.codeGeneration.useInstructionFiles%"
+						"markdownDescription": "%codeart.studio.config.codeGeneration.useInstructionFiles%"
 					},
 					"github.copilot.editor.enableCodeActions": {
 						"type": "boolean",
 						"default": true,
-						"description": "%github.copilot.config.enableCodeActions%"
+						"description": "%codeart.studio.config.enableCodeActions%"
 					},
 					"github.copilot.renameSuggestions.triggerAutomatically": {
 						"type": "boolean",
 						"default": true,
-						"description": "%github.copilot.config.renameSuggestions.triggerAutomatically%"
+						"description": "%codeart.studio.config.renameSuggestions.triggerAutomatically%"
 					},
 					"github.copilot.chat.localeOverride": {
 						"type": "string",
@@ -2267,16 +2248,16 @@
 							"polski"
 						],
 						"default": "auto",
-						"markdownDescription": "%github.copilot.config.localeOverride%"
+						"markdownDescription": "%codeart.studio.config.localeOverride%"
 					},
 					"github.copilot.chat.terminalChatLocation": {
 						"type": "string",
 						"default": "chatView",
-						"markdownDescription": "%github.copilot.config.terminalChatLocation%",
+						"markdownDescription": "%codeart.studio.config.terminalChatLocation%",
 						"markdownEnumDescriptions": [
-							"%github.copilot.config.terminalChatLocation.chatView%",
-							"%github.copilot.config.terminalChatLocation.quickChat%",
-							"%github.copilot.config.terminalChatLocation.terminal%"
+							"%codeart.studio.config.terminalChatLocation.chatView%",
+							"%codeart.studio.config.terminalChatLocation.quickChat%",
+							"%codeart.studio.config.terminalChatLocation.terminal%"
 						],
 						"enum": [
 							"chatView",
@@ -2287,12 +2268,12 @@
 					"github.copilot.chat.scopeSelection": {
 						"type": "boolean",
 						"default": false,
-						"markdownDescription": "%github.copilot.config.scopeSelection%"
+						"markdownDescription": "%codeart.studio.config.scopeSelection%"
 					},
 					"github.copilot.chat.useProjectTemplates": {
 						"type": "boolean",
 						"default": true,
-						"markdownDescription": "%github.copilot.config.useProjectTemplates%"
+						"markdownDescription": "%codeart.studio.config.useProjectTemplates%"
 					},
 					"github.copilot.nextEditSuggestions.enabled": {
 						"type": "boolean",
@@ -2301,7 +2282,7 @@
 							"nextEditSuggestions",
 							"onExp"
 						],
-						"markdownDescription": "%github.copilot.nextEditSuggestions.enabled%",
+						"markdownDescription": "%codeart.studio.nextEditSuggestions.enabled%",
 						"scope": "language-overridable"
 					},
 					"github.copilot.nextEditSuggestions.fixes": {
@@ -2311,7 +2292,7 @@
 							"nextEditSuggestions",
 							"onExp"
 						],
-						"markdownDescription": "%github.copilot.nextEditSuggestions.fixes%",
+						"markdownDescription": "%codeart.studio.nextEditSuggestions.fixes%",
 						"scope": "language-overridable"
 					},
 					"github.copilot.nextEditSuggestions.allowWhitespaceOnlyChanges": {
@@ -2321,13 +2302,13 @@
 							"nextEditSuggestions",
 							"onExp"
 						],
-						"markdownDescription": "%github.copilot.nextEditSuggestions.allowWhitespaceOnlyChanges%",
+						"markdownDescription": "%codeart.studio.nextEditSuggestions.allowWhitespaceOnlyChanges%",
 						"scope": "language-overridable"
 					},
 					"github.copilot.chat.agent.autoFix": {
 						"type": "boolean",
 						"default": true,
-						"description": "%github.copilot.config.autoFix%",
+						"description": "%codeart.studio.config.autoFix%",
 						"tags": [
 							"onExp"
 						]
@@ -2335,12 +2316,12 @@
 					"github.copilot.chat.customInstructionsInSystemMessage": {
 						"type": "boolean",
 						"default": true,
-						"description": "%github.copilot.config.customInstructionsInSystemMessage%"
+						"description": "%codeart.studio.config.customInstructionsInSystemMessage%"
 					},
 					"github.copilot.chat.agent.currentEditorContext.enabled": {
 						"type": "boolean",
 						"default": true,
-						"description": "%github.copilot.config.agent.currentEditorContext.enabled%"
+						"description": "%codeart.studio.config.agent.currentEditorContext.enabled%"
 					}
 				}
 			},
@@ -2350,7 +2331,7 @@
 					"github.copilot.chat.reviewAgent.enabled": {
 						"type": "boolean",
 						"default": true,
-						"description": "%github.copilot.config.reviewAgent.enabled%",
+						"description": "%codeart.studio.config.reviewAgent.enabled%",
 						"tags": [
 							"preview"
 						]
@@ -2358,7 +2339,7 @@
 					"github.copilot.chat.reviewSelection.enabled": {
 						"type": "boolean",
 						"default": true,
-						"description": "%github.copilot.config.reviewSelection.enabled%",
+						"description": "%codeart.studio.config.reviewSelection.enabled%",
 						"tags": [
 							"preview"
 						]
@@ -2369,7 +2350,7 @@
 							"oneOf": [
 								{
 									"type": "object",
-									"markdownDescription": "%github.copilot.config.reviewSelection.instruction.file%",
+									"markdownDescription": "%codeart.studio.config.reviewSelection.instruction.file%",
 									"properties": {
 										"file": {
 											"type": "string",
@@ -2392,7 +2373,7 @@
 								},
 								{
 									"type": "object",
-									"markdownDescription": "%github.copilot.config.reviewSelection.instruction.text%",
+									"markdownDescription": "%codeart.studio.config.reviewSelection.instruction.text%",
 									"properties": {
 										"text": {
 											"type": "string",
@@ -2419,7 +2400,7 @@
 							]
 						},
 						"default": [],
-						"markdownDescription": "%github.copilot.config.reviewSelection.instructions%",
+						"markdownDescription": "%codeart.studio.config.reviewSelection.instructions%",
 						"examples": [
 							[
 								{
@@ -2440,7 +2421,7 @@
 						"tags": [
 							"preview"
 						],
-						"description": "%github.copilot.chat.copilotDebugCommand.enabled%"
+						"description": "%codeart.studio.chat.copilotDebugCommand.enabled%"
 					},
 					"github.copilot.chat.codesearch.enabled": {
 						"type": "boolean",
@@ -2448,7 +2429,7 @@
 						"tags": [
 							"preview"
 						],
-						"markdownDescription": "%github.copilot.config.codesearch.enabled%"
+						"markdownDescription": "%codeart.studio.config.codesearch.enabled%"
 					},
 					"github.copilot.chat.byok.ollamaEndpoint": {
 						"type": "string",
@@ -2456,7 +2437,7 @@
 						"tags": [
 							"preview"
 						],
-						"markdownDescription": "%github.copilot.config.byok.ollamaEndpoint%"
+						"markdownDescription": "%codeart.studio.config.byok.ollamaEndpoint%"
 					}
 				}
 			},
@@ -2470,7 +2451,7 @@
 							"experimental",
 							"onExp"
 						],
-						"markdownDescription": "%github.copilot.config.imageUpload.enabled%"
+						"markdownDescription": "%codeart.studio.config.imageUpload.enabled%"
 					},
 					"github.copilot.chat.edits.suggestRelatedFilesFromGitHistory": {
 						"type": "boolean",
@@ -2478,7 +2459,7 @@
 						"tags": [
 							"experimental"
 						],
-						"markdownDescription": "%github.copilot.config.edits.suggestRelatedFilesFromGitHistory%"
+						"markdownDescription": "%codeart.studio.config.edits.suggestRelatedFilesFromGitHistory%"
 					},
 					"github.copilot.chat.edits.suggestRelatedFilesForTests": {
 						"type": "boolean",
@@ -2486,16 +2467,16 @@
 						"tags": [
 							"experimental"
 						],
-						"markdownDescription": "%github.copilot.chat.edits.suggestRelatedFilesForTests%"
+						"markdownDescription": "%codeart.studio.chat.edits.suggestRelatedFilesForTests%"
 					},
 					"github.copilot.chat.codeGeneration.instructions": {
-						"markdownDeprecationMessage": "%github.copilot.config.codeGeneration.instructions.deprecated%",
+						"markdownDeprecationMessage": "%codeart.studio.config.codeGeneration.instructions.deprecated%",
 						"type": "array",
 						"items": {
 							"oneOf": [
 								{
 									"type": "object",
-									"markdownDescription": "%github.copilot.config.codeGeneration.instruction.file%",
+									"markdownDescription": "%codeart.studio.config.codeGeneration.instruction.file%",
 									"properties": {
 										"file": {
 											"type": "string",
@@ -2518,7 +2499,7 @@
 								},
 								{
 									"type": "object",
-									"markdownDescription": "%github.copilot.config.codeGeneration.instruction.text%",
+									"markdownDescription": "%codeart.studio.config.codeGeneration.instruction.text%",
 									"properties": {
 										"text": {
 											"type": "string",
@@ -2545,7 +2526,7 @@
 							]
 						},
 						"default": [],
-						"markdownDescription": "%github.copilot.config.codeGeneration.instructions%",
+						"markdownDescription": "%codeart.studio.config.codeGeneration.instructions%",
 						"examples": [
 							[
 								{
@@ -2561,13 +2542,13 @@
 						]
 					},
 					"github.copilot.chat.testGeneration.instructions": {
-						"markdownDeprecationMessage": "%github.copilot.config.testGeneration.instructions.deprecated%",
+						"markdownDeprecationMessage": "%codeart.studio.config.testGeneration.instructions.deprecated%",
 						"type": "array",
 						"items": {
 							"oneOf": [
 								{
 									"type": "object",
-									"markdownDescription": "%github.copilot.config.experimental.testGeneration.instruction.file%",
+									"markdownDescription": "%codeart.studio.config.experimental.testGeneration.instruction.file%",
 									"properties": {
 										"file": {
 											"type": "string",
@@ -2590,7 +2571,7 @@
 								},
 								{
 									"type": "object",
-									"markdownDescription": "%github.copilot.config.experimental.testGeneration.instruction.text%",
+									"markdownDescription": "%codeart.studio.config.experimental.testGeneration.instruction.text%",
 									"properties": {
 										"text": {
 											"type": "string",
@@ -2614,7 +2595,7 @@
 							]
 						},
 						"default": [],
-						"markdownDescription": "%github.copilot.config.testGeneration.instructions%",
+						"markdownDescription": "%codeart.studio.config.testGeneration.instructions%",
 						"examples": [
 							[
 								{
@@ -2635,7 +2616,7 @@
 							"oneOf": [
 								{
 									"type": "object",
-									"markdownDescription": "%github.copilot.config.commitMessageGeneration.instruction.file%",
+									"markdownDescription": "%codeart.studio.config.commitMessageGeneration.instruction.file%",
 									"properties": {
 										"file": {
 											"type": "string",
@@ -2655,7 +2636,7 @@
 								},
 								{
 									"type": "object",
-									"markdownDescription": "%github.copilot.config.commitMessageGeneration.instruction.text%",
+									"markdownDescription": "%codeart.studio.config.commitMessageGeneration.instruction.text%",
 									"properties": {
 										"text": {
 											"type": "string",
@@ -2676,7 +2657,7 @@
 							]
 						},
 						"default": [],
-						"markdownDescription": "%github.copilot.config.commitMessageGeneration.instructions%",
+						"markdownDescription": "%codeart.studio.config.commitMessageGeneration.instructions%",
 						"examples": [
 							[
 								{
@@ -2697,7 +2678,7 @@
 							"oneOf": [
 								{
 									"type": "object",
-									"markdownDescription": "%github.copilot.config.pullRequestDescriptionGeneration.instruction.file%",
+									"markdownDescription": "%codeart.studio.config.pullRequestDescriptionGeneration.instruction.file%",
 									"properties": {
 										"file": {
 											"type": "string",
@@ -2717,7 +2698,7 @@
 								},
 								{
 									"type": "object",
-									"markdownDescription": "%github.copilot.config.pullRequestDescriptionGeneration.instruction.text%",
+									"markdownDescription": "%codeart.studio.config.pullRequestDescriptionGeneration.instruction.text%",
 									"properties": {
 										"text": {
 											"type": "string",
@@ -2738,7 +2719,7 @@
 							]
 						},
 						"default": [],
-						"markdownDescription": "%github.copilot.config.pullRequestDescriptionGeneration.instructions%",
+						"markdownDescription": "%codeart.studio.config.pullRequestDescriptionGeneration.instructions%",
 						"examples": [
 							[
 								{
@@ -2756,7 +2737,7 @@
 					"github.copilot.chat.generateTests.codeLens": {
 						"type": "boolean",
 						"default": false,
-						"description": "%github.copilot.config.generateTests.codeLens%",
+						"description": "%codeart.studio.config.generateTests.codeLens%",
 						"tags": [
 							"experimental"
 						]
@@ -2764,7 +2745,7 @@
 					"github.copilot.chat.edits.temporalContext.enabled": {
 						"type": "boolean",
 						"default": false,
-						"description": "%github.copilot.chat.edits.temporalContext.enabled%",
+						"description": "%codeart.studio.chat.edits.temporalContext.enabled%",
 						"tags": [
 							"experimental",
 							"onExp"
@@ -2773,7 +2754,7 @@
 					"github.copilot.chat.editor.temporalContext.enabled": {
 						"type": "boolean",
 						"default": false,
-						"description": "%github.copilot.chat.editor.temporalContext.enabled%",
+						"description": "%codeart.studio.chat.editor.temporalContext.enabled%",
 						"tags": [
 							"experimental",
 							"onExp"
@@ -2782,7 +2763,7 @@
 					"github.copilot.chat.setupTests.enabled": {
 						"type": "boolean",
 						"default": true,
-						"markdownDescription": "%github.copilot.config.setupTests.enabled%",
+						"markdownDescription": "%codeart.studio.config.setupTests.enabled%",
 						"tags": [
 							"experimental"
 						]
@@ -2795,7 +2776,7 @@
 							"experimental",
 							"onExP"
 						],
-						"markdownDescription": "%github.copilot.chat.languageContext.typescript.enabled%"
+						"markdownDescription": "%codeart.studio.chat.languageContext.typescript.enabled%"
 					},
 					"github.copilot.chat.languageContext.typescript.items": {
 						"type": "string",
@@ -2811,7 +2792,7 @@
 							"experimental",
 							"onExP"
 						],
-						"markdownDescription": "%github.copilot.chat.languageContext.typescript.items%"
+						"markdownDescription": "%codeart.studio.chat.languageContext.typescript.items%"
 					},
 					"github.copilot.chat.languageContext.typescript.includeDocumentation": {
 						"type": "boolean",
@@ -2821,7 +2802,7 @@
 							"experimental",
 							"onExP"
 						],
-						"markdownDescription": "%github.copilot.chat.languageContext.typescript.includeDocumentation%"
+						"markdownDescription": "%codeart.studio.chat.languageContext.typescript.includeDocumentation%"
 					},
 					"github.copilot.chat.languageContext.typescript.cacheTimeout": {
 						"type": "number",
@@ -2831,7 +2812,7 @@
 							"experimental",
 							"onExP"
 						],
-						"markdownDescription": "%github.copilot.chat.languageContext.typescript.cacheTimeout%"
+						"markdownDescription": "%codeart.studio.chat.languageContext.typescript.cacheTimeout%"
 					},
 					"github.copilot.chat.languageContext.fix.typescript.enabled": {
 						"type": "boolean",
@@ -2841,7 +2822,7 @@
 							"experimental",
 							"onExP"
 						],
-						"markdownDescription": "%github.copilot.chat.languageContext.fix.typescript.enabled%"
+						"markdownDescription": "%codeart.studio.chat.languageContext.fix.typescript.enabled%"
 					},
 					"github.copilot.chat.languageContext.inline.typescript.enabled": {
 						"type": "boolean",
@@ -2851,7 +2832,7 @@
 							"experimental",
 							"onExP"
 						],
-						"markdownDescription": "%github.copilot.chat.languageContext.inline.typescript.enabled%"
+						"markdownDescription": "%codeart.studio.chat.languageContext.inline.typescript.enabled%"
 					},
 					"github.copilot.chat.newWorkspaceCreation.enabled": {
 						"type": "boolean",
@@ -2859,7 +2840,7 @@
 						"tags": [
 							"experimental"
 						],
-						"description": "%github.copilot.config.newWorkspaceCreation.enabled%"
+						"description": "%codeart.studio.config.newWorkspaceCreation.enabled%"
 					},
 					"github.copilot.chat.newWorkspace.useContext7": {
 						"type": "boolean",
@@ -2867,7 +2848,7 @@
 						"tags": [
 							"experimental"
 						],
-						"markdownDescription": "%github.copilot.config.newWorkspace.useContext7%"
+						"markdownDescription": "%codeart.studio.config.newWorkspace.useContext7%"
 					},
 					"github.copilot.chat.notebook.followCellExecution.enabled": {
 						"type": "boolean",
@@ -2875,7 +2856,7 @@
 						"tags": [
 							"experimental"
 						],
-						"description": "%github.copilot.config.notebook.followCellExecution%"
+						"description": "%codeart.studio.config.notebook.followCellExecution%"
 					},
 					"github.copilot.chat.notebook.enhancedNextEditSuggestions.enabled": {
 						"type": "boolean",
@@ -2884,7 +2865,7 @@
 							"experimental",
 							"onExp"
 						],
-						"description": "%github.copilot.config.notebook.enhancedNextEditSuggestions%"
+						"description": "%codeart.studio.config.notebook.enhancedNextEditSuggestions%"
 					},
 					"github.copilot.chat.summarizeAgentConversationHistory.enabled": {
 						"type": "boolean",
@@ -2892,7 +2873,7 @@
 						"tags": [
 							"experimental"
 						],
-						"description": "%github.copilot.config.summarizeAgentConversationHistory.enabled%"
+						"description": "%codeart.studio.config.summarizeAgentConversationHistory.enabled%"
 					},
 					"github.copilot.chat.virtualTools.threshold": {
 						"type": "number",
@@ -2902,7 +2883,7 @@
 						"tags": [
 							"experimental"
 						],
-						"markdownDescription": "%github.copilot.config.virtualTools.threshold%"
+						"markdownDescription": "%codeart.studio.config.virtualTools.threshold%"
 					},
 					"github.copilot.chat.azureModels": {
 						"type": "object",
@@ -3045,7 +3026,7 @@
 						"tags": [
 							"experimental"
 						],
-						"description": "%github.copilot.config.alternateGptPrompt.enabled%"
+						"description": "%codeart.studio.config.alternateGptPrompt.enabled%"
 					},
 					"github.copilot.chat.gpt5AlternatePrompt": {
 						"type": "string",
@@ -3053,7 +3034,7 @@
 						"tags": [
 							"experimental"
 						],
-						"description": "%github.copilot.config.gpt5AlternatePrompt%"
+						"description": "%codeart.studio.config.gpt5AlternatePrompt%"
 					},
 					"github.copilot.chat.gpt5CodexAlternatePrompt": {
 						"type": "string",
@@ -3066,7 +3047,7 @@
 							"default",
 							"codex"
 						],
-						"description": "%github.copilot.config.gpt5CodexAlternatePrompt%"
+						"description": "%codeart.studio.config.gpt5CodexAlternatePrompt%"
 					},
 					"github.copilot.chat.grokCodeAlternatePrompt": {
 						"type": "string",
@@ -3074,7 +3055,7 @@
 						"tags": [
 							"experimental"
 						],
-						"description": "%github.copilot.config.grokCodeAlternatePrompt%"
+						"description": "%codeart.studio.config.grokCodeAlternatePrompt%"
 					},
 					"github.copilot.chat.claudeSonnet45AlternatePrompt": {
 						"type": "string",
@@ -3082,12 +3063,12 @@
 						"tags": [
 							"experimental"
 						],
-						"description": "%github.copilot.config.claudeSonnet45AlternatePrompt%"
+						"description": "%codeart.studio.config.claudeSonnet45AlternatePrompt%"
 					},
 					"github.copilot.chat.useResponsesApi": {
 						"type": "boolean",
 						"default": true,
-						"markdownDescription": "%github.copilot.config.useResponsesApi%",
+						"markdownDescription": "%codeart.studio.config.useResponsesApi%",
 						"tags": [
 							"experimental",
 							"onExp"
@@ -3096,7 +3077,7 @@
 					"github.copilot.chat.responsesApiReasoningEffort": {
 						"type": "string",
 						"default": "default",
-						"markdownDescription": "%github.copilot.config.responsesApiReasoningEffort%",
+						"markdownDescription": "%codeart.studio.config.responsesApiReasoningEffort%",
 						"tags": [
 							"experimental",
 							"onExp"
@@ -3111,7 +3092,7 @@
 					"github.copilot.chat.responsesApiReasoningSummary": {
 						"type": "string",
 						"default": "detailed",
-						"markdownDescription": "%github.copilot.config.responsesApiReasoningSummary%",
+						"markdownDescription": "%codeart.studio.config.responsesApiReasoningSummary%",
 						"tags": [
 							"experimental",
 							"onExp"
@@ -3126,7 +3107,7 @@
 							"string",
 							"null"
 						],
-						"markdownDescription": "%github.copilot.config.completionsFetcher%",
+						"markdownDescription": "%codeart.studio.config.completionsFetcher%",
 						"tags": [
 							"experimental",
 							"onExp"
@@ -3141,7 +3122,7 @@
 							"string",
 							"null"
 						],
-						"markdownDescription": "%github.copilot.config.nesFetcher%",
+						"markdownDescription": "%codeart.studio.config.nesFetcher%",
 						"tags": [
 							"experimental",
 							"onExp"
@@ -3157,18 +3138,18 @@
 		"submenus": [
 			{
 				"id": "copilot/reviewComment/additionalActions/applyAndNext",
-				"label": "%github.copilot.submenu.reviewComment.applyAndNext.label%"
+				"label": "%codeart.studio.submenu.reviewComment.applyAndNext.label%"
 			},
 			{
 				"id": "copilot/reviewComment/additionalActions/discardAndNext",
-				"label": "%github.copilot.submenu.reviewComment.discardAndNext.label%"
+				"label": "%codeart.studio.submenu.reviewComment.discardAndNext.label%"
 			},
 			{
 				"id": "copilot/reviewComment/additionalActions/discard",
-				"label": "%github.copilot.submenu.reviewComment.discard.label%"
+				"label": "%codeart.studio.submenu.reviewComment.discard.label%"
 			},
 			{
-				"id": "github.copilot.chat.debug.filter",
+				"id": "codeart.studio.chat.debug.filter",
 				"label": "Filter",
 				"icon": "$(filter)"
 			},
@@ -3181,375 +3162,375 @@
 		"menus": {
 			"editor/title": [
 				{
-					"command": "github.copilot.debug.generateInlineEditTests",
+					"command": "codeart.studio.debug.generateInlineEditTests",
 					"when": "resourceScheme == 'ccreq'"
 				},
 				{
-					"command": "github.copilot.chat.notebook.enableFollowCellExecution",
+					"command": "codeart.studio.chat.notebook.enableFollowCellExecution",
 					"when": "config.github.copilot.chat.notebook.followCellExecution.enabled && !github.copilot.notebookFollowInSessionEnabled && github.copilot.notebookAgentModeUsage && !config.notebook.globalToolbar",
 					"group": "navigation@10"
 				},
 				{
-					"command": "github.copilot.chat.notebook.disableFollowCellExecution",
+					"command": "codeart.studio.chat.notebook.disableFollowCellExecution",
 					"when": "config.github.copilot.chat.notebook.followCellExecution.enabled && github.copilot.notebookFollowInSessionEnabled && github.copilot.notebookAgentModeUsage && !config.notebook.globalToolbar",
 					"group": "navigation@10"
 				},
 				{
-					"command": "github.copilot.chat.replay",
+					"command": "codeart.studio.chat.replay",
 					"group": "navigation@9",
 					"when": "resourceLangId == chatReplay"
 				}
 			],
 			"editor/context": [
 				{
-					"command": "github.copilot.chat.explain",
+					"command": "codeart.studio.chat.explain",
 					"when": "!github.copilot.interactiveSession.disabled",
 					"group": "1_chat@4"
 				}
 			],
 			"editor/context/chat": [
 				{
-					"command": "github.copilot.chat.fix",
+					"command": "codeart.studio.chat.fix",
 					"when": "!github.copilot.interactiveSession.disabled && !editorReadonly",
 					"group": "copilotAction@1"
 				},
 				{
-					"command": "github.copilot.chat.review",
+					"command": "codeart.studio.chat.review",
 					"when": "config.github.copilot.chat.reviewSelection.enabled && !github.copilot.interactiveSession.disabled && resourceScheme != 'vscode-chat-code-block'",
 					"group": "copilotAction@2"
 				},
 				{
-					"command": "github.copilot.chat.generateDocs",
+					"command": "codeart.studio.chat.generateDocs",
 					"when": "!github.copilot.interactiveSession.disabled && !editorReadonly",
 					"group": "copilotGenerate@1"
 				},
 				{
-					"command": "github.copilot.chat.generateTests",
+					"command": "codeart.studio.chat.generateTests",
 					"when": "!github.copilot.interactiveSession.disabled && !editorReadonly",
 					"group": "copilotGenerate@2"
 				}
 			],
 			"testing/item/result": [
 				{
-					"command": "github.copilot.tests.fixTestFailure.fromInline",
+					"command": "codeart.studio.tests.fixTestFailure.fromInline",
 					"when": "testResultState == failed && !testResultOutdated",
 					"group": "inline@2"
 				}
 			],
 			"testing/item/context": [
 				{
-					"command": "github.copilot.tests.fixTestFailure.fromInline",
+					"command": "codeart.studio.tests.fixTestFailure.fromInline",
 					"when": "testResultState == failed && !testResultOutdated",
 					"group": "inline@2"
 				}
 			],
 			"commandPalette": [
 				{
-					"command": "github.copilot.interactiveSession.feedback",
+					"command": "codeart.studio.interactiveSession.feedback",
 					"when": "github.copilot-chat.activated && !github.copilot.interactiveSession.disabled"
 				},
 				{
-					"command": "github.copilot.debug.workbenchState",
+					"command": "codeart.studio.debug.workbenchState",
 					"when": "true"
 				},
 				{
-					"command": "github.copilot.chat.rerunWithCopilotDebug",
+					"command": "codeart.studio.chat.rerunWithCopilotDebug",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.startCopilotDebugCommand",
+					"command": "codeart.studio.chat.startCopilotDebugCommand",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.git.generateCommitMessage",
+					"command": "codeart.studio.git.generateCommitMessage",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.git.resolveMergeConflicts",
+					"command": "codeart.studio.git.resolveMergeConflicts",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.explain",
+					"command": "codeart.studio.chat.explain",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review",
+					"command": "codeart.studio.chat.review",
 					"when": "!github.copilot.interactiveSession.disabled"
 				},
 				{
-					"command": "github.copilot.chat.review.apply",
+					"command": "codeart.studio.chat.review.apply",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.applyAndNext",
+					"command": "codeart.studio.chat.review.applyAndNext",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.discard",
+					"command": "codeart.studio.chat.review.discard",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.discardAndNext",
+					"command": "codeart.studio.chat.review.discardAndNext",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.discardAll",
+					"command": "codeart.studio.chat.review.discardAll",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.stagedChanges",
+					"command": "codeart.studio.chat.review.stagedChanges",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.unstagedChanges",
+					"command": "codeart.studio.chat.review.unstagedChanges",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.changes",
+					"command": "codeart.studio.chat.review.changes",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.stagedFileChange",
+					"command": "codeart.studio.chat.review.stagedFileChange",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.unstagedFileChange",
+					"command": "codeart.studio.chat.review.unstagedFileChange",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.previous",
+					"command": "codeart.studio.chat.review.previous",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.next",
+					"command": "codeart.studio.chat.review.next",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.continueInInlineChat",
+					"command": "codeart.studio.chat.review.continueInInlineChat",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.continueInChat",
+					"command": "codeart.studio.chat.review.continueInChat",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.markHelpful",
+					"command": "codeart.studio.chat.review.markHelpful",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.review.markUnhelpful",
+					"command": "codeart.studio.chat.review.markUnhelpful",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.devcontainer.generateDevContainerConfig",
+					"command": "codeart.studio.devcontainer.generateDevContainerConfig",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.tests.fixTestFailure",
+					"command": "codeart.studio.tests.fixTestFailure",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.tests.fixTestFailure.fromInline",
+					"command": "codeart.studio.tests.fixTestFailure.fromInline",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.search.markHelpful",
+					"command": "codeart.studio.search.markHelpful",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.search.markUnhelpful",
+					"command": "codeart.studio.search.markUnhelpful",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.search.feedback",
+					"command": "codeart.studio.search.feedback",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.debug.showElements",
+					"command": "codeart.studio.chat.debug.showElements",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.debug.hideElements",
+					"command": "codeart.studio.chat.debug.hideElements",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.debug.showTools",
+					"command": "codeart.studio.chat.debug.showTools",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.debug.hideTools",
+					"command": "codeart.studio.chat.debug.hideTools",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.debug.showNesRequests",
+					"command": "codeart.studio.chat.debug.showNesRequests",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.debug.hideNesRequests",
+					"command": "codeart.studio.chat.debug.hideNesRequests",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.debug.exportLogItem",
+					"command": "codeart.studio.chat.debug.exportLogItem",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.debug.exportPromptArchive",
+					"command": "codeart.studio.chat.debug.exportPromptArchive",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.debug.exportPromptLogsAsJson",
+					"command": "codeart.studio.chat.debug.exportPromptLogsAsJson",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.debug.exportAllPromptLogsAsJson",
+					"command": "codeart.studio.chat.debug.exportAllPromptLogsAsJson",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.mcp.setup.check",
+					"command": "codeart.studio.chat.mcp.setup.check",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.mcp.setup.validatePackage",
+					"command": "codeart.studio.chat.mcp.setup.validatePackage",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.mcp.setup.flow",
+					"command": "codeart.studio.chat.mcp.setup.flow",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.chat.debug.showRawRequestBody",
+					"command": "codeart.studio.chat.debug.showRawRequestBody",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.debug.showOutputChannel",
+					"command": "codeart.studio.debug.showOutputChannel",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.cli.sessions.delete",
+					"command": "codeart.studio.cli.sessions.delete",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.cli.sessions.refresh",
+					"command": "codeart.studio.cli.sessions.refresh",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.cli.sessions.resumeInTerminal",
+					"command": "codeart.studio.cli.sessions.resumeInTerminal",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.cli.sessions.newTerminalSession",
+					"command": "codeart.studio.cli.sessions.newTerminalSession",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.cloud.sessions.refresh",
+					"command": "codeart.studio.cloud.sessions.refresh",
 					"when": "false"
 				},
 				{
-					"command": "github.copilot.cloud.sessions.openInBrowser",
+					"command": "codeart.studio.cloud.sessions.openInBrowser",
 					"when": "false"
 				}
 			],
 			"view/title": [
 				{
-					"command": "github.copilot.claude.sessions.refresh",
+					"command": "codeart.studio.claude.sessions.refresh",
 					"when": "view == workbench.view.chat.sessions.claude-code",
 					"group": "navigation@1"
 				},
 				{
-					"command": "github.copilot.cli.sessions.refresh",
+					"command": "codeart.studio.cli.sessions.refresh",
 					"when": "view == workbench.view.chat.sessions.copilotcli",
 					"group": "navigation@1"
 				},
 				{
-					"submenu": "github.copilot.chat.debug.filter",
+					"submenu": "codeart.studio.chat.debug.filter",
 					"when": "view == copilot-chat",
 					"group": "navigation"
 				},
 				{
-					"command": "github.copilot.chat.debug.exportAllPromptLogsAsJson",
+					"command": "codeart.studio.chat.debug.exportAllPromptLogsAsJson",
 					"when": "view == copilot-chat",
 					"group": "export@1"
 				},
 				{
-					"command": "github.copilot.debug.showOutputChannel",
+					"command": "codeart.studio.debug.showOutputChannel",
 					"when": "view == copilot-chat",
 					"group": "3_show@1"
 				},
 				{
-					"command": "github.copilot.debug.showChatLogView",
+					"command": "codeart.studio.debug.showChatLogView",
 					"when": "view == workbench.panel.chat.view.copilot",
 					"group": "3_show"
 				},
 				{
-					"command": "github.copilot.cloud.sessions.refresh",
+					"command": "codeart.studio.cloud.sessions.refresh",
 					"when": "view == workbench.view.chat.sessions.copilot-cloud-agent",
 					"group": "navigation@1"
 				}
 			],
 			"view/item/context": [
 				{
-					"command": "github.copilot.chat.debug.showRawRequestBody",
+					"command": "codeart.studio.chat.debug.showRawRequestBody",
 					"when": "view == copilot-chat && viewItem == request",
 					"group": "export@0"
 				},
 				{
-					"command": "github.copilot.chat.debug.exportLogItem",
+					"command": "codeart.studio.chat.debug.exportLogItem",
 					"when": "view == copilot-chat && (viewItem == toolcall || viewItem == request)",
 					"group": "export@1"
 				},
 				{
-					"command": "github.copilot.chat.debug.exportPromptArchive",
+					"command": "codeart.studio.chat.debug.exportPromptArchive",
 					"when": "view == copilot-chat && viewItem == chatprompt",
 					"group": "export@2"
 				},
 				{
-					"command": "github.copilot.chat.debug.exportPromptLogsAsJson",
+					"command": "codeart.studio.chat.debug.exportPromptLogsAsJson",
 					"when": "view == copilot-chat && viewItem == chatprompt",
 					"group": "export@3"
 				}
 			],
 			"searchPanel/aiResults/commands": [
 				{
-					"command": "github.copilot.search.markHelpful",
+					"command": "codeart.studio.search.markHelpful",
 					"group": "inline@0",
 					"when": "aiResultsTitle && aiResultsRequested"
 				},
 				{
-					"command": "github.copilot.search.markUnhelpful",
+					"command": "codeart.studio.search.markUnhelpful",
 					"group": "inline@1",
 					"when": "aiResultsTitle && aiResultsRequested"
 				},
 				{
-					"command": "github.copilot.search.feedback",
+					"command": "codeart.studio.search.feedback",
 					"group": "inline@2",
 					"when": "aiResultsTitle && aiResultsRequested && github.copilot.debugReportFeedback"
 				}
 			],
 			"comments/comment/title": [
 				{
-					"command": "github.copilot.chat.review.markHelpful",
+					"command": "codeart.studio.chat.review.markHelpful",
 					"group": "inline@0",
 					"when": "commentController == github-copilot-review"
 				},
 				{
-					"command": "github.copilot.chat.review.markUnhelpful",
+					"command": "codeart.studio.chat.review.markUnhelpful",
 					"group": "inline@1",
 					"when": "commentController == github-copilot-review"
 				}
 			],
 			"commentsView/commentThread/context": [
 				{
-					"command": "github.copilot.chat.review.apply",
+					"command": "codeart.studio.chat.review.apply",
 					"group": "context@1",
 					"when": "commentController == github-copilot-review"
 				},
 				{
-					"command": "github.copilot.chat.review.discard",
+					"command": "codeart.studio.chat.review.discard",
 					"group": "context@2",
 					"when": "commentController == github-copilot-review"
 				},
 				{
-					"command": "github.copilot.chat.review.discardAll",
+					"command": "codeart.studio.chat.review.discardAll",
 					"group": "context@3",
 					"when": "commentController == github-copilot-review"
 				}
@@ -3561,7 +3542,7 @@
 					"when": "commentController == github-copilot-review && github.copilot.chat.review.numberOfComments > 1"
 				},
 				{
-					"command": "github.copilot.chat.review.apply",
+					"command": "codeart.studio.chat.review.apply",
 					"group": "inline@1",
 					"when": "commentController == github-copilot-review && github.copilot.chat.review.numberOfComments == 1"
 				},
@@ -3578,195 +3559,195 @@
 			],
 			"copilot/reviewComment/additionalActions/applyAndNext": [
 				{
-					"command": "github.copilot.chat.review.applyAndNext",
+					"command": "codeart.studio.chat.review.applyAndNext",
 					"group": "inline@1",
 					"when": "commentController == github-copilot-review"
 				},
 				{
-					"command": "github.copilot.chat.review.apply",
+					"command": "codeart.studio.chat.review.apply",
 					"group": "inline@2",
 					"when": "commentController == github-copilot-review"
 				}
 			],
 			"copilot/reviewComment/additionalActions/discardAndNext": [
 				{
-					"command": "github.copilot.chat.review.discardAndNext",
+					"command": "codeart.studio.chat.review.discardAndNext",
 					"group": "inline@1",
 					"when": "commentController == github-copilot-review"
 				},
 				{
-					"command": "github.copilot.chat.review.discard",
+					"command": "codeart.studio.chat.review.discard",
 					"group": "inline@2",
 					"when": "commentController == github-copilot-review"
 				},
 				{
-					"command": "github.copilot.chat.review.continueInInlineChat",
+					"command": "codeart.studio.chat.review.continueInInlineChat",
 					"group": "inline@3",
 					"when": "commentController == github-copilot-review"
 				}
 			],
 			"copilot/reviewComment/additionalActions/discard": [
 				{
-					"command": "github.copilot.chat.review.discard",
+					"command": "codeart.studio.chat.review.discard",
 					"group": "inline@2",
 					"when": "commentController == github-copilot-review"
 				},
 				{
-					"command": "github.copilot.chat.review.continueInInlineChat",
+					"command": "codeart.studio.chat.review.continueInInlineChat",
 					"group": "inline@3",
 					"when": "commentController == github-copilot-review"
 				}
 			],
 			"comments/commentThread/title": [
 				{
-					"command": "github.copilot.chat.review.previous",
+					"command": "codeart.studio.chat.review.previous",
 					"group": "inline@1",
 					"when": "commentController == github-copilot-review"
 				},
 				{
-					"command": "github.copilot.chat.review.next",
+					"command": "codeart.studio.chat.review.next",
 					"group": "inline@2",
 					"when": "commentController == github-copilot-review"
 				},
 				{
-					"command": "github.copilot.chat.review.continueInChat",
+					"command": "codeart.studio.chat.review.continueInChat",
 					"group": "inline@3",
 					"when": "commentController == github-copilot-review"
 				},
 				{
-					"command": "github.copilot.chat.review.discardAll",
+					"command": "codeart.studio.chat.review.discardAll",
 					"group": "inline@4",
 					"when": "commentController == github-copilot-review"
 				}
 			],
 			"scm/title": [
 				{
-					"command": "github.copilot.chat.review.changes",
+					"command": "codeart.studio.chat.review.changes",
 					"group": "navigation",
 					"when": "config.github.copilot.chat.reviewAgent.enabled && github.copilot.chat.reviewDiff.enabled && scmProvider == git && scmProviderRootUri in github.copilot.chat.reviewDiff.enabledRootUris"
 				}
 			],
 			"scm/resourceGroup/context": [
 				{
-					"command": "github.copilot.chat.review.stagedChanges",
+					"command": "codeart.studio.chat.review.stagedChanges",
 					"when": "config.github.copilot.chat.reviewAgent.enabled && github.copilot.chat.reviewDiff.enabled && scmProvider == git && scmResourceGroup == index",
 					"group": "inline@-3"
 				},
 				{
-					"command": "github.copilot.chat.review.unstagedChanges",
+					"command": "codeart.studio.chat.review.unstagedChanges",
 					"when": "config.github.copilot.chat.reviewAgent.enabled && github.copilot.chat.reviewDiff.enabled && scmProvider == git && scmResourceGroup == workingTree",
 					"group": "inline@-3"
 				}
 			],
 			"scm/resourceState/context": [
 				{
-					"command": "github.copilot.git.resolveMergeConflicts",
+					"command": "codeart.studio.git.resolveMergeConflicts",
 					"when": "scmProvider == git && scmResourceGroup == merge && git.activeResourceHasMergeConflicts",
 					"group": "z_chat@1"
 				},
 				{
-					"command": "github.copilot.chat.review.stagedFileChange",
+					"command": "codeart.studio.chat.review.stagedFileChange",
 					"group": "3_copilot",
 					"when": "config.github.copilot.chat.reviewAgent.enabled && github.copilot.chat.reviewDiff.enabled && scmProvider == git && scmResourceGroup == index"
 				},
 				{
-					"command": "github.copilot.chat.review.unstagedFileChange",
+					"command": "codeart.studio.chat.review.unstagedFileChange",
 					"group": "3_copilot",
 					"when": "config.github.copilot.chat.reviewAgent.enabled && github.copilot.chat.reviewDiff.enabled && scmProvider == git && scmResourceGroup == workingTree"
 				}
 			],
 			"scm/inputBox": [
 				{
-					"command": "github.copilot.git.generateCommitMessage",
+					"command": "codeart.studio.git.generateCommitMessage",
 					"when": "scmProvider == git"
 				}
 			],
 			"testing/message/context": [
 				{
-					"command": "github.copilot.tests.fixTestFailure",
+					"command": "codeart.studio.tests.fixTestFailure",
 					"when": "testing.testItemHasUri",
 					"group": "inline@1"
 				}
 			],
 			"issue/reporter": [
 				{
-					"command": "github.copilot.report"
+					"command": "codeart.studio.report"
 				}
 			],
-			"github.copilot.chat.debug.filter": [
+			"codeart.studio.chat.debug.filter": [
 				{
-					"command": "github.copilot.chat.debug.showElements",
+					"command": "codeart.studio.chat.debug.showElements",
 					"when": "github.copilot.chat.debug.elementsHidden",
 					"group": "commands@0"
 				},
 				{
-					"command": "github.copilot.chat.debug.hideElements",
+					"command": "codeart.studio.chat.debug.hideElements",
 					"when": "!github.copilot.chat.debug.elementsHidden",
 					"group": "commands@0"
 				},
 				{
-					"command": "github.copilot.chat.debug.showTools",
+					"command": "codeart.studio.chat.debug.showTools",
 					"when": "github.copilot.chat.debug.toolsHidden",
 					"group": "commands@1"
 				},
 				{
-					"command": "github.copilot.chat.debug.hideTools",
+					"command": "codeart.studio.chat.debug.hideTools",
 					"when": "!github.copilot.chat.debug.toolsHidden",
 					"group": "commands@1"
 				},
 				{
-					"command": "github.copilot.chat.debug.showNesRequests",
+					"command": "codeart.studio.chat.debug.showNesRequests",
 					"when": "github.copilot.chat.debug.nesRequestsHidden",
 					"group": "commands@2"
 				},
 				{
-					"command": "github.copilot.chat.debug.hideNesRequests",
+					"command": "codeart.studio.chat.debug.hideNesRequests",
 					"when": "!github.copilot.chat.debug.nesRequestsHidden",
 					"group": "commands@2"
 				}
 			],
 			"notebook/toolbar": [
 				{
-					"command": "github.copilot.chat.notebook.enableFollowCellExecution",
+					"command": "codeart.studio.chat.notebook.enableFollowCellExecution",
 					"when": "config.github.copilot.chat.notebook.followCellExecution.enabled && !github.copilot.notebookFollowInSessionEnabled && github.copilot.notebookAgentModeUsage && config.notebook.globalToolbar",
 					"group": "navigation/execute@15"
 				},
 				{
-					"command": "github.copilot.chat.notebook.disableFollowCellExecution",
+					"command": "codeart.studio.chat.notebook.disableFollowCellExecution",
 					"when": "config.github.copilot.chat.notebook.followCellExecution.enabled && github.copilot.notebookFollowInSessionEnabled && github.copilot.notebookAgentModeUsage && config.notebook.globalToolbar",
 					"group": "navigation/execute@15"
 				}
 			],
 			"editor/content": [
 				{
-					"command": "github.copilot.git.resolveMergeConflicts",
+					"command": "codeart.studio.git.resolveMergeConflicts",
 					"group": "z_chat@1",
 					"when": "config.git.enabled && !git.missing && !isInDiffEditor && !isMergeEditor && resource in git.mergeChanges && git.activeResourceHasMergeConflicts"
 				}
 			],
 			"chat/chatSessions": [
 				{
-					"command": "github.copilot.cli.sessions.resumeInTerminal",
+					"command": "codeart.studio.cli.sessions.resumeInTerminal",
 					"when": "chatSessionType == copilotcli",
 					"group": "inline@1"
 				},
 				{
-					"command": "github.copilot.cli.sessions.delete",
+					"command": "codeart.studio.cli.sessions.delete",
 					"when": "chatSessionType == copilotcli",
 					"group": "inline@2"
 				},
 				{
-					"command": "github.copilot.cli.sessions.newTerminalSession",
+					"command": "codeart.studio.cli.sessions.newTerminalSession",
 					"when": "view == workbench.view.chat.sessions.copilotcli",
 					"group": "submenu"
 				},
 				{
-					"command": "github.copilot.cli.sessions.refresh",
+					"command": "codeart.studio.cli.sessions.refresh",
 					"when": "view == workbench.view.chat.sessions.copilotcli",
 					"group": "navigation@1"
 				},
 				{
-					"command": "github.copilot.cloud.sessions.openInBrowser",
+					"command": "codeart.studio.cloud.sessions.openInBrowser",
 					"when": "chatSessionType == copilot-cloud-agent",
 					"group": "context"
 				}
@@ -3774,23 +3755,23 @@
 		},
 		"icons": {
 			"copilot-logo": {
-				"description": "%github.copilot.icon%",
+				"description": "%codeart.studio.icon%",
 				"default": {
-					"fontPath": "assets/copilot.woff",
+					"fontPath": "assets/codeart.woff",
 					"fontCharacter": "\\0041"
 				}
 			},
 			"copilot-warning": {
-				"description": "%github.copilot.icon%",
+				"description": "%codeart.studio.icon%",
 				"default": {
-					"fontPath": "assets/copilot.woff",
+					"fontPath": "assets/codeart.woff",
 					"fontCharacter": "\\0042"
 				}
 			},
 			"copilot-notconnected": {
-				"description": "%github.copilot.icon%",
+				"description": "%codeart.studio.icon%",
 				"default": {
-					"fontPath": "assets/copilot.woff",
+					"fontPath": "assets/codeart.woff",
 					"fontCharacter": "\\0043"
 				}
 			}
@@ -3800,7 +3781,7 @@
 				"id": "copilot-font",
 				"src": [
 					{
-						"path": "assets/copilot.woff",
+						"path": "assets/codeart.woff",
 						"format": "woff"
 					}
 				]
@@ -3887,7 +3868,7 @@
 				{
 					"id": "copilot-chat",
 					"name": "Chat Debug",
-					"icon": "assets/debug-icon.svg",
+					"icon": "assets/codeart-debug.svg",
 					"when": "github.copilot.chat.showLogView"
 				}
 			],
@@ -3905,7 +3886,7 @@
 				{
 					"id": "copilot-chat",
 					"title": "Chat Debug",
-					"icon": "assets/debug-icon.svg"
+					"icon": "assets/codeart-debug.svg"
 				},
 				{
 					"id": "context-inspector",
@@ -3921,7 +3902,7 @@
 		},
 		"keybindings": [
 			{
-				"command": "github.copilot.chat.rerunWithCopilotDebug",
+				"command": "codeart.studio.chat.rerunWithCopilotDebug",
 				"key": "ctrl+alt+.",
 				"mac": "cmd+alt+.",
 				"when": "github.copilot-chat.activated && terminalShellIntegrationEnabled && terminalFocus && !terminalAltBufferActive"
@@ -3930,14 +3911,14 @@
 		"walkthroughs": [
 			{
 				"id": "copilotWelcome",
-				"title": "%github.copilot.walkthrough.title%",
-				"description": "%github.copilot.walkthrough.description%",
+				"title": "%codeart.studio.walkthrough.title%",
+				"description": "%codeart.studio.walkthrough.description%",
 				"when": "!isWeb",
 				"steps": [
 					{
 						"id": "copilot.setup.signIn",
-						"title": "%github.copilot.walkthrough.setup.signIn.title%",
-						"description": "%github.copilot.walkthrough.setup.signIn.description%",
+						"title": "%codeart.studio.walkthrough.setup.signIn.title%",
+						"description": "%codeart.studio.walkthrough.setup.signIn.description%",
 						"when": "chatEntitlementSignedOut && !view.workbench.panel.chat.view.copilot.visible && !github.copilot-chat.activated && !github.copilot.offline && !github.copilot.interactiveSession.individual.disabled && !github.copilot.interactiveSession.individual.expired && !github.copilot.interactiveSession.enterprise.disabled && !github.copilot.interactiveSession.contactSupport",
 						"media": {
 							"video": {
@@ -3946,13 +3927,13 @@
 								"hc": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-hc.mp4",
 								"hcLight": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-hclight.mp4"
 							},
-							"altText": "%github.copilot.walkthrough.panelChat.media.altText%"
+							"altText": "%codeart.studio.walkthrough.panelChat.media.altText%"
 						}
 					},
 					{
 						"id": "copilot.setup.signInNoAction",
-						"title": "%github.copilot.walkthrough.setup.signIn.title%",
-						"description": "%github.copilot.walkthrough.setup.noAction.description%",
+						"title": "%codeart.studio.walkthrough.setup.signIn.title%",
+						"description": "%codeart.studio.walkthrough.setup.noAction.description%",
 						"when": "chatEntitlementSignedOut && view.workbench.panel.chat.view.copilot.visible && !github.copilot-chat.activated && !github.copilot.offline && !github.copilot.interactiveSession.individual.disabled && !github.copilot.interactiveSession.individual.expired && !github.copilot.interactiveSession.enterprise.disabled && !github.copilot.interactiveSession.contactSupport",
 						"media": {
 							"video": {
@@ -3961,13 +3942,13 @@
 								"hc": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-hc.mp4",
 								"hcLight": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-hclight.mp4"
 							},
-							"altText": "%github.copilot.walkthrough.panelChat.media.altText%"
+							"altText": "%codeart.studio.walkthrough.panelChat.media.altText%"
 						}
 					},
 					{
 						"id": "copilot.setup.signUp",
-						"title": "%github.copilot.walkthrough.setup.signUp.title%",
-						"description": "%github.copilot.walkthrough.setup.signUp.description%",
+						"title": "%codeart.studio.walkthrough.setup.signUp.title%",
+						"description": "%codeart.studio.walkthrough.setup.signUp.description%",
 						"when": "chatPlanCanSignUp && !view.workbench.panel.chat.view.copilot.visible && !github.copilot-chat.activated && !github.copilot.offline && (github.copilot.interactiveSession.individual.disabled || github.copilot.interactiveSession.individual.expired) && !github.copilot.interactiveSession.enterprise.disabled && !github.copilot.interactiveSession.contactSupport",
 						"media": {
 							"video": {
@@ -3976,13 +3957,13 @@
 								"hc": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-hc.mp4",
 								"hcLight": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-hclight.mp4"
 							},
-							"altText": "%github.copilot.walkthrough.panelChat.media.altText%"
+							"altText": "%codeart.studio.walkthrough.panelChat.media.altText%"
 						}
 					},
 					{
 						"id": "copilot.setup.signUpNoAction",
-						"title": "%github.copilot.walkthrough.setup.signUp.title%",
-						"description": "%github.copilot.walkthrough.setup.noAction.description%",
+						"title": "%codeart.studio.walkthrough.setup.signUp.title%",
+						"description": "%codeart.studio.walkthrough.setup.noAction.description%",
 						"when": "chatPlanCanSignUp && view.workbench.panel.chat.view.copilot.visible && !github.copilot-chat.activated && !github.copilot.offline && (github.copilot.interactiveSession.individual.disabled || github.copilot.interactiveSession.individual.expired) && !github.copilot.interactiveSession.enterprise.disabled && !github.copilot.interactiveSession.contactSupport",
 						"media": {
 							"video": {
@@ -3991,13 +3972,13 @@
 								"hc": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-hc.mp4",
 								"hcLight": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-hclight.mp4"
 							},
-							"altText": "%github.copilot.walkthrough.panelChat.media.altText%"
+							"altText": "%codeart.studio.walkthrough.panelChat.media.altText%"
 						}
 					},
 					{
 						"id": "copilot.panelChat",
-						"title": "%github.copilot.walkthrough.panelChat.title%",
-						"description": "%github.copilot.walkthrough.panelChat.description%",
+						"title": "%codeart.studio.walkthrough.panelChat.title%",
+						"description": "%codeart.studio.walkthrough.panelChat.description%",
 						"when": "!chatEntitlementSignedOut || chatIsEnabled ",
 						"media": {
 							"video": {
@@ -4006,13 +3987,13 @@
 								"hc": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-hc.mp4",
 								"hcLight": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-hclight.mp4"
 							},
-							"altText": "%github.copilot.walkthrough.panelChat.media.altText%"
+							"altText": "%codeart.studio.walkthrough.panelChat.media.altText%"
 						}
 					},
 					{
 						"id": "copilot.edits",
-						"title": "%github.copilot.walkthrough.edits.title%",
-						"description": "%github.copilot.walkthrough.edits.description%",
+						"title": "%codeart.studio.walkthrough.edits.title%",
+						"description": "%codeart.studio.walkthrough.edits.description%",
 						"when": "!chatEntitlementSignedOut || chatIsEnabled ",
 						"media": {
 							"video": {
@@ -4021,13 +4002,13 @@
 								"hc": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/edits-hc.mp4",
 								"hcLight": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/edits-hclight.mp4"
 							},
-							"altText": "%github.copilot.walkthrough.edits.media.altText%"
+							"altText": "%codeart.studio.walkthrough.edits.media.altText%"
 						}
 					},
 					{
 						"id": "copilot.firstSuggest",
-						"title": "%github.copilot.walkthrough.firstSuggest.title%",
-						"description": "%github.copilot.walkthrough.firstSuggest.description%",
+						"title": "%codeart.studio.walkthrough.firstSuggest.title%",
+						"description": "%codeart.studio.walkthrough.firstSuggest.description%",
 						"when": "!chatEntitlementSignedOut || chatIsEnabled ",
 						"media": {
 							"video": {
@@ -4036,13 +4017,13 @@
 								"hc": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/ghost-text-hc.mp4",
 								"hcLight": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/ghost-text-hclight.mp4"
 							},
-							"altText": "%github.copilot.walkthrough.firstSuggest.media.altText%"
+							"altText": "%codeart.studio.walkthrough.firstSuggest.media.altText%"
 						}
 					},
 					{
 						"id": "copilot.inlineChatNotMac",
-						"title": "%github.copilot.walkthrough.inlineChatNotMac.title%",
-						"description": "%github.copilot.walkthrough.inlineChatNotMac.description%",
+						"title": "%codeart.studio.walkthrough.inlineChatNotMac.title%",
+						"description": "%codeart.studio.walkthrough.inlineChatNotMac.description%",
 						"when": "!isMac && (!chatEntitlementSignedOut || chatIsEnabled )",
 						"media": {
 							"video": {
@@ -4051,13 +4032,13 @@
 								"hc": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/inline-hc.mp4",
 								"hcLight": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/inline-hclight.mp4"
 							},
-							"altText": "%github.copilot.walkthrough.inlineChatNotMac.media.altText%"
+							"altText": "%codeart.studio.walkthrough.inlineChatNotMac.media.altText%"
 						}
 					},
 					{
 						"id": "copilot.inlineChatMac",
-						"title": "%github.copilot.walkthrough.inlineChatMac.title%",
-						"description": "%github.copilot.walkthrough.inlineChatMac.description%",
+						"title": "%codeart.studio.walkthrough.inlineChatMac.title%",
+						"description": "%codeart.studio.walkthrough.inlineChatMac.description%",
 						"when": "isMac && (!chatEntitlementSignedOut || chatIsEnabled )",
 						"media": {
 							"video": {
@@ -4066,13 +4047,13 @@
 								"hc": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/inline-hc.mp4",
 								"hcLight": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/inline-hclight.mp4"
 							},
-							"altText": "%github.copilot.walkthrough.inlineChatMac.media.altText%"
+							"altText": "%codeart.studio.walkthrough.inlineChatMac.media.altText%"
 						}
 					},
 					{
 						"id": "copilot.sparkle",
-						"title": "%github.copilot.walkthrough.sparkle.title%",
-						"description": "%github.copilot.walkthrough.sparkle.description%",
+						"title": "%codeart.studio.walkthrough.sparkle.title%",
+						"description": "%codeart.studio.walkthrough.sparkle.description%",
 						"when": "!chatEntitlementSignedOut || chatIsEnabled",
 						"media": {
 							"video": {
@@ -4081,7 +4062,7 @@
 								"hc": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/git-commit-hc.mp4",
 								"hcLight": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/git-commit-hclight.mp4"
 							},
-							"altText": "%github.copilot.walkthrough.sparkle.media.altText%"
+							"altText": "%codeart.studio.walkthrough.sparkle.media.altText%"
 						}
 					}
 				]

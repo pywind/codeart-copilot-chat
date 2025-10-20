@@ -23578,7 +23578,7 @@
           "customizations": {
             "vscode": {
               "extensions": [
-                "CodeArt.codeart-copilot-chat",
+                "codeart-collective.codeart-studio-chat",
                 "GitHub.copilot"
               ]
             }

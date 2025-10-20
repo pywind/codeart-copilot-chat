@@ -60,7 +60,7 @@ export class LoggingActionsContrib {
 			const electronConfig = getShadowedConfig<boolean>(this.configurationService, this.experimentationService, ConfigKey.Shared.DebugUseElectronFetcher, ConfigKey.Internal.DebugExpUseElectronFetcher);
 			const nodeConfig = getShadowedConfig<boolean>(this.configurationService, this.experimentationService, ConfigKey.Shared.DebugUseNodeFetcher, ConfigKey.Internal.DebugExpUseNodeFetcher);
 			const nodeFetchConfig = getShadowedConfig<boolean>(this.configurationService, this.experimentationService, ConfigKey.Shared.DebugUseNodeFetchFetcher, ConfigKey.Internal.DebugExpUseNodeFetchFetcher);
-			await appendText(editor, `## CodeArt Copilot Chat
+                    await appendText(editor, `## CodeArt Studio Chat
 
 - Extension Version: ${this.envService.getVersion()} (${this.envService.getBuildType()})
 - VS Code: ${this.envService.getEditorInfo().format()}

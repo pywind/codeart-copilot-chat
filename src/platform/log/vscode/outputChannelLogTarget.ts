@@ -8,7 +8,7 @@ import { ILogTarget } from '../common/logService';
 
 export let outputChannel: OutputChannel;
 
-export const OutputChannelName = 'CodeArt Copilot Chat';
+export const OutputChannelName = 'CodeArt Studio Chat';
 
 export class NewOutputChannelLogTarget implements ILogTarget {
 

@@ -1,76 +1,39 @@
-# GitHub Copilot - Your AI peer programmer
+# CodeArt Studio Chat – Your AI coding partner
 
-**[GitHub Copilot](https://code.visualstudio.com/docs/copilot/overview)** is an AI peer programming tool that helps you write code faster and smarter.
+CodeArt Studio Chat packages the chat, agent, and inline assistance pieces from the open source Copilot Chat fork under a community friendly brand. The experience stays fully compatible with upstream Copilot services while avoiding proprietary artwork, product names, or marketing copy.
 
-GitHub Copilot adapts to your unique needs allowing you to select the best model for your project, customize chat responses with custom instructions, and utilize agent mode for AI-powered, seamlessly integrated peer programming sessions.
+## Why choose CodeArt Studio Chat?
 
-**Sign up for [GitHub Copilot Free](https://github.com/settings/copilot?utm_source=vscode-chat-readme&utm_medium=first&utm_campaign=2025mar-em-MSFT-signup)!**
+- **Stay focused inside VS Code.** Iterate on multi-file edits, ask questions about unfamiliar code, or run quick experiments without leaving the editor.
+- **Pick the workflow that fits.** Launch autonomous agent sessions for multi-step tasks, switch to collaborative edit mode for guided refactors, or use inline chat for quick fixes.
+- **Bring your own backend.** Point the extension at any Copilot-compatible service endpoint, including self-hosted deployments.
+- **Transparent by design.** This fork removes telemetry hooks and keeps all prompts, logs, and credentials on your machine.
 
-![Working with GitHub Copilot agent mode to make edits to code in your workspace](https://github.com/microsoft/vscode-copilot-release/blob/main/images/hero-dark.png?raw=true)
+## Getting started
 
-When you install Copilot in Visual Studio Code, you get two extensions:
-* **[GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)** - Provides inline coding suggestions as you type.
-* **CodeArt Copilot Chat** (this extension) - A companion extension that provides conversational AI assistance without conflicting with the Marketplace version.
+1. Install the **CodeArt Studio Chat** VSIX you built from this repository.
+2. Sign in with the Copilot-compatible provider that your organization or instance exposes.
+3. Open the **Chat** view in VS Code to start a conversation, kick off an agent workflow, or invoke inline chat.
 
-## Getting access to GitHub Copilot
+## Feature highlights
 
-Sign up for [GitHub Copilot Free](https://github.com/settings/copilot?utm_source=vscode-chat-readme&utm_medium=second&utm_campaign=2025mar-em-MSFT-signup), or request access from your enterprise admin.
+### AI-powered coding sessions
 
-To access GitHub Copilot, an active GitHub Copilot subscription is required. You can read more about our business and individual offerings at [github.com/features/copilot](https://github.com/features/copilot?utm_source=vscode-chat&utm_medium=readme&utm_campaign=2025mar-em-MSFT-signup).
+Launch an AI session that understands your workspace. Agent workflows can run builds, execute tests, and iterate until tasks succeed. Edit mode keeps you in control with conversational, stepwise changes applied directly to your files.
 
-## AI-powered coding sessions
+### Code suggestions in the editor
 
-**Start an AI-powered coding session tailored to your workflow**. Copilot Edits allows you to quickly iterate on code changes directly in the editor, across multiple files using natural language. For a more autonomous peer programmer experience,
-[agent mode](https://aka.ms/vscode-copilot-agent) performs multi-step coding tasks at your command. It automatically handles compile and lint errors, monitors terminal and test output, and iterates until the task is complete. [Edit mode](https://aka.ms/vscode-copilot-edit) offers a conversational, step-by-step coding experience. Engage in multi-turn chat conversations while Copilot applies edits directly to your codebase, allowing you to review changes in context and maintain full control.
+Inline chat and next edit suggestions surface code changes as you type. Accept updates with the Tab key or trigger follow-up instructions from the inline UI when you need more context.
 
-![Agent mode in Copilot Chat creating a new Vue application](https://github.com/microsoft/vscode-copilot-release/blob/main/images/agent-mode-readme.gif?raw=true)
+### Ask and learn about your code with chat
 
-## Code suggestions in the editor
+Ask questions about the files you have open, explore APIs, or request explanations for complex logic. Workspace-aware context, slash commands, and participants help responses stay grounded in your repository.
 
-**Automatically receive code suggestions in the editor** from [completions](https://aka.ms/vscode-completions) and [next edit suggestions](https://aka.ms/vscode-nes) to help you write code faster. Code completions provide suggestions at the current location, tailored to your coding style and your existing code. Copilot next edit suggestions (Copilot NES) takes it a step further and predicts what and where your next logical code change will be. Use the Tab key to navigate and accept changes in quick succession.
+## Requirements
 
-![Copilot next edit suggestions](https://code.visualstudio.com/assets/docs/copilot/inline-suggestions/nes-point.gif)
-
-## Ask and learn about your code with chat
-
-**Ask Copilot for help with any task or question** in the [Chat view](https://aka.ms/vscode-chat), bringing in code from your current files. Rather than giving you a generic answer, it can give answers that are relevant for your codebase using information provided by [participants](https://aka.ms/vscode-chat-participants), [variables](https://aka.ms/vscode-chat-variables), and [slash commands](https://aka.ms/vscode-chat-commands).
-
-![Using the workspace chat participant](https://github.com/microsoft/vscode-copilot-release/blob/main/images/participants-workspace.gif?raw=true)
-
-**Apply Copilot's AI suggestions directly to your code** using [Inline chat](https://aka.ms/vscode-inline-chat), staying in the flow. Need help with refactoring a method, adding error handling, or explaining a complex algorithm - just launch Copilot in the editor!
-
-![Inline chat in VS Code](https://code.visualstudio.com/assets/docs/copilot/copilot-chat/inline-chat-question-example.png)
-
-### Supported languages and frameworks
-
-GitHub Copilot works on any language, including Java, PHP, Python, JavaScript, Ruby, Go, C#, or C++. Because it’s been trained on languages in public repositories, it works for most popular languages, libraries and frameworks.
-
-### Version compatibility
-
-As Copilot Chat releases in lockstep with VS Code due to its deep UI integration, every new version of Copilot Chat is only compatible with the latest and newest release of VS Code. This means that if you are using an older version of VS Code, you will not be able to use the latest Copilot Chat.
-
-Only the latest Copilot Chat versions will use the latest models provided by the Copilot service, as even minor model upgrades require prompt changes and fixes in the extension. An older version of Copilot Chat will still use the latest version of Copilot completions.
-
-### Privacy and preview terms
-
-By using Copilot Chat you agree to [GitHub Copilot chat preview terms](https://docs.github.com/en/early-access/copilot/github-copilot-chat-technical-preview-license-terms). Review the [transparency note](https://aka.ms/CopilotChatTransparencyNote) to understand about usage, limitations and ways to improve Copilot Chat during the technical preview.
-
-Your code is yours. We follow responsible practices in accordance with our [Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement) to ensure that your code snippets will not be used as suggested code for other users of GitHub Copilot.
-
-To get the latest security fixes, please use the latest version of the Copilot extension and VS Code.
-
-### Resources & next steps
-* **Sign up for [GitHub Copilot Free](https://github.com/settings/copilot?utm_source=vscode-chat-readme&utm_medium=third&utm_campaign=2025mar-em-MSFT-signup)**
-    * If you're using Copilot for your business, check out [Copilot Business](https://docs.github.com/en/copilot/copilot-business/about-github-copilot-business) and [Copilot Enterprise](https://docs.github.com/en/copilot/github-copilot-enterprise/overview/about-github-copilot-enterprise)
-* **[Get started with Copilot in VS Code tutorial](https://code.visualstudio.com/docs/copilot/getting-started)**
-* **[Copilot Chat quickstart video](https://www.youtube.com/watch?v=3surPGP7_4o)** to learn Copilot Chat in less than 4 minutes
-* **[VS Code Copilot Series on YouTube](https://www.youtube.com/playlist?list=PLj6YeMhvp2S5_hvBl2SE-7YCHYlLQ0bPt)**
-* **[FAQ](https://code.visualstudio.com/docs/copilot/faq)**
-* **[Feedback](https://github.com/microsoft/vscode-copilot-release/issues)**: We'd love to get your help in making GitHub Copilot better!
-
-## Data and telemetry
-
-This fork disables all telemetry integrations that were present in the original extension. No usage data is collected or transmitted when using this build.
+- **Node.js** `>= 22.14.0` and **npm** `>= 9.0.0`
+- **Visual Studio Code** `1.106.0` or newer
+- Platform build tools required by Node.js (Python and C/C++ tooling on Windows)
 
 ## Proxy configuration
 
@@ -80,65 +43,20 @@ The proxy URL is stored in the `github.copilot.advanced.debug.overrideProxyUrl` 
 
 ## Building and running from source
 
-Follow the steps below if you want to hack on the Copilot Chat extension locally or produce a VSIX for testing.
-
-### Prerequisites
-
-* **Node.js** `>= 22.14.0` and **npm** `>= 9.0.0` (the versions enforced by the repository's [`engines`](package.json))
-* **Visual Studio Code** `1.106.0` or newer for running and debugging the extension
-* The platform tooling required by Node.js (Python and C/C++ build tools) if you're on Windows
-
-### Install dependencies
-
 1. Clone this repository and open it in VS Code.
-2. Install the dependencies:
+2. Install dependencies with `npm install`.
+3. Run `npm run compile` for a development build with source maps, or `npm run build` for a production bundle.
+4. Start the **Run Extension** launch configuration (or run `code --extensionDevelopmentPath="$(pwd)"`) to load the extension in an Extension Development Host.
+5. To publish a VSIX package, run `npm run package` and look in the `build/` directory for the output.
 
-   ```bash
-   npm install
-   ```
+## Resources
 
-### Build the extension
-
-* For a fast, development-friendly build (includes source maps), run:
-
-  ```bash
-  npm run compile
-  ```
-
-* To produce an optimized production bundle (used for packaging), run:
-
-  ```bash
-  npm run build
-  ```
-
-### Run the extension in VS Code
-
-1. In VS Code, open the **Run and Debug** view.
-2. Select the **Run Extension** launch configuration and press **F5**. This starts a new Extension Development Host with the compiled Copilot Chat extension loaded.
-3. The extension will rebuild automatically if you keep `npm run watch` running in a terminal while you develop.
-
-Alternatively, from the command line you can launch an Extension Development Host directly after compiling:
-
-```bash
-code --extensionDevelopmentPath="$(pwd)"
-```
-
-### Package a VSIX (optional)
-
-To generate an installable `.vsix`, run:
-
-```bash
-npm run package
-```
-
-The packaged VSIX will be emitted into the `build` directory.
-
-## Trademarks
-
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow Microsoft's Trademark & Brand Guidelines. Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship. Any use of third-party trademarks or logos are subject to those third-party's policies.
+- [Project documentation](docs/README.md)
+- [Issue tracker](https://github.com/codeart-ai/codeart-copilot-chat/issues)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ## License
 
-Copyright (c) Microsoft Corporation. All rights reserved.
+Copyright (c) 2024 CodeArt Collective.
 
 Licensed under the [MIT](LICENSE.txt) license.

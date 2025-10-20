@@ -361,21 +361,21 @@
 			"copilot-logo": {
 				"description": "%github.copilot.icon%",
 				"default": {
-					"fontPath": "assets/copilot.woff",
+					"fontPath": "assets/codeart.woff",
 					"fontCharacter": "\\0041"
 				}
 			},
 			"copilot-warning": {
 				"description": "%github.copilot.icon%",
 				"default": {
-					"fontPath": "assets/copilot.woff",
+					"fontPath": "assets/codeart.woff",
 					"fontCharacter": "\\0042"
 				}
 			},
 			"copilot-notconnected": {
 				"description": "%github.copilot.icon%",
 				"default": {
-					"fontPath": "assets/copilot.woff",
+					"fontPath": "assets/codeart.woff",
 					"fontCharacter": "\\0043"
 				}
 			}
@@ -385,7 +385,7 @@
 				"id": "copilot-font",
 				"src": [
 					{
-						"path": "assets/copilot.woff",
+						"path": "assets/codeart.woff",
 						"format": "woff"
 					}
 				]

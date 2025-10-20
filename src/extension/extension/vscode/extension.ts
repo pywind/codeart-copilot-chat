@@ -15,6 +15,7 @@ import { IInstantiationServiceBuilder, InstantiationServiceBuilder } from '../..
 import { IInstantiationService } from '../../../util/vs/platform/instantiation/common/instantiation';
 import { CopilotExtensionApi } from '../../api/vscode/extensionApi';
 import { ContributionCollection, IExtensionContributionFactory } from '../../common/contributions';
+import { registerCodeArtCommandAliases } from './commandAliases';
 
 // ##################################################################################
 // ###                                                                            ###
@@ -55,12 +56,14 @@ export async function baseActivate(configuration: IExtensionActivationConfigurat
 		l10n.config({ contents: vscodeL10n.bundle });
 	}
 
-	if (!isProduction) {
-		// Must do this before creating all the services which may rely on keys from .env
-		configuration.configureDevPackages?.();
-	}
+        if (!isProduction) {
+                // Must do this before creating all the services which may rely on keys from .env
+                configuration.configureDevPackages?.();
+        }
 
-	const instantiationService = createInstantiationService(configuration);
+        registerCodeArtCommandAliases(context);
+
+        const instantiationService = createInstantiationService(configuration);
 
 	await instantiationService.invokeFunction(async accessor => {
 		const expService = accessor.get(IExperimentationService);

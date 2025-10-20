@@ -53,6 +53,7 @@ export class FetcherService implements IFetcherService {
 		const useNodeFetchFetcher = !(useElectronFetcher && electronFetcher) && !useNodeFetcher && getShadowedConfig<boolean>(configurationService, experimentationService, ConfigKey.Shared.DebugUseNodeFetchFetcher, ConfigKey.Internal.DebugExpUseNodeFetchFetcher);
 
 		const fetchers = [];
+		const shouldDisableStrictSSL = () => configurationService.getConfig(ConfigKey.Shared.DisableStrictSSL);
 		if (electronFetcher) {
 			fetchers.push(electronFetcher);
 		}
@@ -65,7 +66,7 @@ export class FetcherService implements IFetcherService {
 		}
 
 		// Node fetch preferred over Node https in fallbacks. (HTTP2 support)
-		const nodeFetchFetcher = new NodeFetchFetcher(envService);
+		const nodeFetchFetcher = new NodeFetchFetcher(envService, shouldDisableStrictSSL);
 		if (useNodeFetchFetcher) {
 			this._logService.info(`Using the Node fetch fetcher.`);
 			fetchers.unshift(nodeFetchFetcher);
@@ -73,7 +74,7 @@ export class FetcherService implements IFetcherService {
 			fetchers.push(nodeFetchFetcher);
 		}
 
-		const nodeFetcher = new NodeFetcher(envService);
+		const nodeFetcher = new NodeFetcher(envService, shouldDisableStrictSSL);
 		if (useNodeFetcher || (!(useElectronFetcher && electronFetcher) && !useNodeFetchFetcher)) { // Node https used when none is configured. (historical)
 			this._logService.info(`Using the Node fetcher.`);
 			fetchers.unshift(nodeFetcher);

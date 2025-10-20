@@ -72,6 +72,12 @@ To get the latest security fixes, please use the latest version of the Copilot e
 
 This fork disables all telemetry integrations that were present in the original extension. No usage data is collected or transmitted when using this build.
 
+## Proxy configuration
+
+Use **Copilot: Configure Proxy** to set the proxy URL that Copilot requests should use, test connectivity, and toggle strict SSL validation when working with custom certificates. The command opens a guided picker that lets you edit the proxy, disable or re-enable strict SSL with an explicit warning, and run the **Copilot: Test Copilot Connection** check on demand.
+
+The proxy URL is stored in the `github.copilot.advanced.debug.overrideProxyUrl` setting. Strict SSL can be controlled with `github.copilot.advanced.network.disableStrictSSL`; leave this option disabled to keep certificate validation enabled. When strict SSL is enabled, Copilot will continue to respect VS Code's built-in `http.proxyStrictSSL` setting as a fallback.
+
 ## Building and running from source
 
 Follow the steps below if you want to hack on the Copilot Chat extension locally or produce a VSIX for testing.

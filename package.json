@@ -1786,17 +1786,29 @@
 				"category": "Developer",
 				"enablement": "!github.copilot.chat.replay.workspaceEditTracing"
 			},
-			{
-				"command": "github.copilot.chat.replay.disableWorkspaceEditTracing",
-				"title": "%github.copilot.command.disableEditTracing%",
-				"category": "Developer",
-				"enablement": "github.copilot.chat.replay.workspaceEditTracing"
-			},
-			{
-				"command": "github.copilot.chat.explain",
-				"title": "%github.copilot.command.explainThis%",
-				"enablement": "!github.copilot.interactiveSession.disabled",
-				"category": "Chat"
+                        {
+                                "command": "github.copilot.chat.replay.disableWorkspaceEditTracing",
+                                "title": "%github.copilot.command.disableEditTracing%",
+                                "category": "Developer",
+                                "enablement": "github.copilot.chat.replay.workspaceEditTracing"
+                        },
+                        {
+                                "command": "github.copilot.chat.configureProxy",
+                                "title": "%github.copilot.command.configureProxy%",
+                                "icon": "$(settings-gear)",
+                                "category": "Copilot"
+                        },
+                        {
+                                "command": "github.copilot.chat.testProxyConnection",
+                                "title": "%github.copilot.command.testProxyConnection%",
+                                "icon": "$(plug)",
+                                "category": "Copilot"
+                        },
+                        {
+                                "command": "github.copilot.chat.explain",
+                                "title": "%github.copilot.command.explainThis%",
+                                "enablement": "!github.copilot.interactiveSession.disabled",
+                                "category": "Chat"
 			},
 			{
 				"command": "github.copilot.chat.explain.palette",
@@ -2770,12 +2782,23 @@
 							"onExp"
 						]
 					},
-					"github.copilot.chat.editor.temporalContext.enabled": {
-						"type": "boolean",
-						"default": false,
-						"description": "%github.copilot.chat.editor.temporalContext.enabled%",
-						"tags": [
-							"experimental",
+                                        "github.copilot.advanced.debug.overrideProxyUrl": {
+                                                "type": "string",
+                                                "scope": "application",
+                                                "markdownDescription": "%github.copilot.config.advanced.debug.overrideProxyUrl%"
+                                        },
+                                        "github.copilot.advanced.network.disableStrictSSL": {
+                                                "type": "boolean",
+                                                "default": false,
+                                                "scope": "application",
+                                                "markdownDescription": "%github.copilot.config.advanced.network.disableStrictSSL%"
+                                        },
+                                        "github.copilot.chat.editor.temporalContext.enabled": {
+                                                "type": "boolean",
+                                                "default": false,
+                                                "description": "%github.copilot.chat.editor.temporalContext.enabled%",
+                                                "tags": [
+                                                        "experimental",
 							"onExp"
 						]
 					},
@@ -3979,26 +4002,32 @@
 							"altText": "%github.copilot.walkthrough.panelChat.media.altText%"
 						}
 					},
-					{
-						"id": "copilot.setup.signUpNoAction",
-						"title": "%github.copilot.walkthrough.setup.signUp.title%",
-						"description": "%github.copilot.walkthrough.setup.noAction.description%",
-						"when": "chatPlanCanSignUp && view.workbench.panel.chat.view.copilot.visible && !github.copilot-chat.activated && !github.copilot.offline && (github.copilot.interactiveSession.individual.disabled || github.copilot.interactiveSession.individual.expired) && !github.copilot.interactiveSession.enterprise.disabled && !github.copilot.interactiveSession.contactSupport",
-						"media": {
-							"video": {
-								"dark": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace.mp4",
-								"light": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-light.mp4",
-								"hc": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-hc.mp4",
-								"hcLight": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-hclight.mp4"
-							},
-							"altText": "%github.copilot.walkthrough.panelChat.media.altText%"
-						}
-					},
-					{
-						"id": "copilot.panelChat",
-						"title": "%github.copilot.walkthrough.panelChat.title%",
-						"description": "%github.copilot.walkthrough.panelChat.description%",
-						"when": "!chatEntitlementSignedOut || chatIsEnabled ",
+                                        {
+                                                "id": "copilot.setup.signUpNoAction",
+                                                "title": "%github.copilot.walkthrough.setup.signUp.title%",
+                                                "description": "%github.copilot.walkthrough.setup.noAction.description%",
+                                                "when": "chatPlanCanSignUp && view.workbench.panel.chat.view.copilot.visible && !github.copilot-chat.activated && !github.copilot.offline && (github.copilot.interactiveSession.individual.disabled || github.copilot.interactiveSession.individual.expired) && !github.copilot.interactiveSession.enterprise.disabled && !github.copilot.interactiveSession.contactSupport",
+                                                "media": {
+                                                        "video": {
+                                                                "dark": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace.mp4",
+                                                                "light": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-light.mp4",
+                                                                "hc": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-hc.mp4",
+                                                                "hcLight": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace-hclight.mp4"
+                                                        },
+                                                        "altText": "%github.copilot.walkthrough.panelChat.media.altText%"
+                                                }
+                                        },
+                                        {
+                                                "id": "copilot.setup.network",
+                                                "title": "%github.copilot.walkthrough.setup.network.title%",
+                                                "description": "%github.copilot.walkthrough.setup.network.description%",
+                                                "when": "!chatEntitlementSignedOut || chatIsEnabled "
+                                        },
+                                        {
+                                                "id": "copilot.panelChat",
+                                                "title": "%github.copilot.walkthrough.panelChat.title%",
+                                                "description": "%github.copilot.walkthrough.panelChat.description%",
+                                                "when": "!chatEntitlementSignedOut || chatIsEnabled ",
 						"media": {
 							"video": {
 								"dark": "https://vscodewalkthroughs.z1.web.core.windows.net/v0.26/workspace.mp4",

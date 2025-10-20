@@ -10,12 +10,13 @@ import { Lazy } from '../../../util/vs/base/common/lazy';
 
 export class NodeFetchFetcher extends BaseFetchFetcher {
 
-	constructor(
-		envService: IEnvService,
-		userAgentLibraryUpdate?: (original: string) => string,
-	) {
-		super(getFetch(), envService, userAgentLibraryUpdate);
-	}
+        constructor(
+                envService: IEnvService,
+                shouldDisableStrictSSL?: () => boolean,
+                userAgentLibraryUpdate?: (original: string) => string,
+        ) {
+                super(createFetch(shouldDisableStrictSSL), envService, userAgentLibraryUpdate);
+        }
 
 	getUserAgentLibrary(): string {
 		return 'node-fetch';
@@ -30,12 +31,12 @@ export class NodeFetchFetcher extends BaseFetchFetcher {
 	}
 }
 
-function getFetch(): typeof globalThis.fetch {
-	const fetch = (globalThis as any).__vscodePatchedFetch || globalThis.fetch;
-	return function (input: string | URL | globalThis.Request, init?: RequestInit) {
-		return fetch(input, { dispatcher: agent.value, ...init });
-	};
+function createFetch(shouldDisableStrictSSL?: () => boolean): typeof globalThis.fetch {
+        const fetch = (globalThis as any).__vscodePatchedFetch || globalThis.fetch;
+        const strictAgent = new Lazy(() => new undici.Agent({ allowH2: true }));
+        const insecureAgent = new Lazy(() => new undici.Agent({ allowH2: true, connect: { rejectUnauthorized: false } }));
+        return function (input: string | URL | globalThis.Request, init?: RequestInit) {
+                const dispatcher = shouldDisableStrictSSL?.() ? insecureAgent.value : strictAgent.value;
+                return fetch(input, { dispatcher, ...init });
+        };
 }
-
-// Cache agent to reuse connections.
-const agent = new Lazy(() => new undici.Agent({ allowH2: true }));

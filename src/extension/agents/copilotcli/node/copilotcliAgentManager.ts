@@ -5,7 +5,6 @@
 
 import type { AgentOptions, ModelProvider, Session, SessionEvent } from '@github/copilot/sdk';
 import type * as vscode from 'vscode';
-import { IAuthenticationService } from '../../../../platform/authentication/common/authentication';
 import { IEnvService } from '../../../../platform/env/common/envService';
 import { IVSCodeExtensionContext } from '../../../../platform/extContext/common/extensionContext';
 import { ILogService } from '../../../../platform/log/common/logService';
@@ -19,15 +18,27 @@ import { IToolsService } from '../../../tools/common/toolsService';
 import { ICopilotCLISessionService } from './copilotcliSessionService';
 import { PermissionRequest, processToolExecutionComplete, processToolExecutionStart } from './copilotcliToolInvocationFormatter';
 import { ensureNodePtyShim } from './nodePtyShim';
+import { ILanguageModelServerConfig, LanguageModelServer } from '../../node/langModelServer';
 
 export class CopilotCLIAgentManager extends Disposable {
-	constructor(
-		@ILogService private readonly logService: ILogService,
-		@IInstantiationService private readonly instantiationService: IInstantiationService,
-		@ICopilotCLISessionService private readonly sessionService: ICopilotCLISessionService,
-	) {
-		super();
-	}
+        constructor(
+                @ILogService private readonly logService: ILogService,
+                @IInstantiationService private readonly instantiationService: IInstantiationService,
+                @ICopilotCLISessionService private readonly sessionService: ICopilotCLISessionService,
+        ) {
+                super();
+        }
+
+        private _langModelServer: LanguageModelServer | undefined;
+
+        private async getLangModelServer(): Promise<LanguageModelServer> {
+                if (!this._langModelServer) {
+                        this._langModelServer = this._register(this.instantiationService.createInstance(LanguageModelServer));
+                        await this._langModelServer.start();
+                }
+
+                return this._langModelServer;
+        }
 
 	/**
 	 * Find session by SDK session ID
@@ -47,16 +58,19 @@ export class CopilotCLIAgentManager extends Disposable {
 		const sessionIdForLog = copilotcliSessionId ?? 'new';
 		this.logService.trace(`[CopilotCLIAgentManager] Handling request for sessionId=${sessionIdForLog}.`);
 
-		// Check if we already have a session wrapper
-		let session = copilotcliSessionId ? this.sessionService.findSessionWrapper<CopilotCLISession>(copilotcliSessionId) : undefined;
+                const serverConfig = (await this.getLangModelServer()).getConfig();
 
-		if (session) {
-			this.logService.trace(`[CopilotCLIAgentManager] Reusing CopilotCLI session ${copilotcliSessionId}.`);
-		} else {
-			const sdkSession = await this.sessionService.getOrCreateSDKSession(copilotcliSessionId, request.prompt);
-			session = this.instantiationService.createInstance(CopilotCLISession, sdkSession);
-			this.sessionService.trackSessionWrapper(sdkSession.sessionId, session);
-		}
+                // Check if we already have a session wrapper
+                let session = copilotcliSessionId ? this.sessionService.findSessionWrapper<CopilotCLISession>(copilotcliSessionId) : undefined;
+
+                if (session) {
+                        this.logService.trace(`[CopilotCLIAgentManager] Reusing CopilotCLI session ${copilotcliSessionId}.`);
+                        session.updateServerConfig(serverConfig);
+                } else {
+                        const sdkSession = await this.sessionService.getOrCreateSDKSession(copilotcliSessionId, request.prompt);
+                        session = this.instantiationService.createInstance(CopilotCLISession, sdkSession, serverConfig);
+                        this.sessionService.trackSessionWrapper(sdkSession.sessionId, session);
+                }
 
 		this.sessionService.setPendingRequest(session.sessionId);
 		await session.invoke(request.prompt, request.toolInvocationToken, stream, modelId, token);
@@ -66,22 +80,40 @@ export class CopilotCLIAgentManager extends Disposable {
 }
 
 export class CopilotCLISession extends Disposable {
-	private _abortController = new AbortController();
-	private _pendingToolInvocations = new Map<string, vscode.ChatToolInvocationPart>();
-	public readonly sessionId: string;
+        private _abortController = new AbortController();
+        private _pendingToolInvocations = new Map<string, vscode.ChatToolInvocationPart>();
+        public readonly sessionId: string;
 
-	constructor(
-		private readonly _sdkSession: Session,
-		@ILogService private readonly logService: ILogService,
-		@IWorkspaceService private readonly workspaceService: IWorkspaceService,
-		@IAuthenticationService private readonly _authenticationService: IAuthenticationService,
-		@IToolsService private readonly toolsService: IToolsService,
-		@IEnvService private readonly envService: IEnvService,
-		@IVSCodeExtensionContext private readonly extensionContext: IVSCodeExtensionContext,
-	) {
-		super();
-		this.sessionId = _sdkSession.sessionId;
-	}
+        constructor(
+                private readonly _sdkSession: Session,
+                private _serverConfig: ILanguageModelServerConfig,
+                @ILogService private readonly logService: ILogService,
+                @IWorkspaceService private readonly workspaceService: IWorkspaceService,
+                @IToolsService private readonly toolsService: IToolsService,
+                @IEnvService private readonly envService: IEnvService,
+                @IVSCodeExtensionContext private readonly extensionContext: IVSCodeExtensionContext,
+        ) {
+                super();
+                this.sessionId = _sdkSession.sessionId;
+        }
+
+        public updateServerConfig(serverConfig: ILanguageModelServerConfig): void {
+                this._serverConfig = serverConfig;
+        }
+
+        private normalizeModelProvider(modelProvider: ModelProvider | undefined): ModelProvider {
+                const anthropicProvider = !modelProvider
+                        ? { type: 'anthropic', model: 'claude-sonnet-4.5' }
+                        : modelProvider.type === 'anthropic'
+                                ? modelProvider
+                                : { type: 'anthropic', model: modelProvider.model };
+
+                if (!anthropicProvider.model.startsWith('claude')) {
+                        return { type: 'anthropic', model: 'claude-3-5-haiku' };
+                }
+
+                return anthropicProvider;
+        }
 
 	public override dispose(): void {
 		this._abortController.abort();
@@ -110,25 +142,22 @@ export class CopilotCLISession extends Disposable {
 			throw new Error('Session disposed');
 		}
 
-		this.logService.trace(`[CopilotCLISession] Invoking session ${this.sessionId}`);
-		const copilotToken = await this._authenticationService.getCopilotToken();
+                this.logService.trace(`[CopilotCLISession] Invoking session ${this.sessionId}`);
 
-		const options: AgentOptions = {
-			modelProvider: modelId ?? {
-				type: 'anthropic',
-				model: 'claude-sonnet-4.5',
-			},
-			abortController: this._abortController,
-			// TODO@rebornix handle workspace properly
-			workingDirectory: this.workspaceService.getWorkspaceFolders().at(0)?.fsPath,
-			copilotToken: copilotToken.token,
-			env: {
-				...process.env,
-				COPILOTCLI_DISABLE_NONESSENTIAL_TRAFFIC: '1'
-			},
-			requestPermission: async (permissionRequest) => {
-				return await this.requestPermission(permissionRequest, toolInvocationToken);
-			},
+                const options: AgentOptions = {
+                        modelProvider: this.normalizeModelProvider(modelId),
+                        abortController: this._abortController,
+                        // TODO@rebornix handle workspace properly
+                        workingDirectory: this.workspaceService.getWorkspaceFolders().at(0)?.fsPath,
+                        env: {
+                                ...process.env,
+                                COPILOTCLI_DISABLE_NONESSENTIAL_TRAFFIC: '1',
+                                ANTHROPIC_BASE_URL: `http://127.0.0.1:${this._serverConfig.port}`,
+                                ANTHROPIC_API_KEY: this._serverConfig.nonce,
+                        },
+                        requestPermission: async (permissionRequest) => {
+                                return await this.requestPermission(permissionRequest, toolInvocationToken);
+                        },
 			logger: {
 				isDebug: () => false,
 				debug: (msg: string) => this.logService.debug(msg),
@@ -141,7 +170,7 @@ export class CopilotCLISession extends Disposable {
 				endGroup: () => { }
 			},
 			session: this._sdkSession
-		};
+                };
 
 		try {
 			for await (const event of this.query(prompt, options)) {

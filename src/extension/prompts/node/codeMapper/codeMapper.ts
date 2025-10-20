@@ -34,7 +34,6 @@ import { ITokenizerProvider } from '../../../../platform/tokenizer/node/tokenize
 import { getLanguageForResource } from '../../../../util/common/languages';
 import { getFenceForCodeBlock, languageIdToMDCodeBlockLang } from '../../../../util/common/markdown';
 import { ITokenizer } from '../../../../util/common/tokenizer';
-import { equals } from '../../../../util/vs/base/common/arrays';
 import { assertNever } from '../../../../util/vs/base/common/assert';
 import { AsyncIterableObject } from '../../../../util/vs/base/common/async';
 import { CancellationToken } from '../../../../util/vs/base/common/cancellation';
@@ -45,13 +44,14 @@ import { generateUuid } from '../../../../util/vs/base/common/uuid';
 import { IInstantiationService } from '../../../../util/vs/platform/instantiation/common/instantiation';
 import { NotebookEdit, Position, Range, TextEdit } from '../../../../vscodeTypes';
 import { OutcomeAnnotation, OutcomeAnnotationLabel } from '../../../inlineChat/node/promptCraftingTypes';
-import { Lines, LinesEdit } from '../../../prompt/node/editGeneration';
+import { Lines } from '../../../prompt/node/editGeneration';
+import { Reporter, createEditsFromRealDiff } from '../../../prompt/node/editFromDiffGeneration';
 import { LineOfText, PartialAsyncTextReader } from '../../../prompt/node/streamingEdits';
 import { PromptRenderer } from '../../../prompts/node/base/promptRenderer';
 import { EXISTING_CODE_MARKER } from '../panel/codeBlockFormattingRules';
 import { CodeMapperFullRewritePrompt, CodeMapperPatchRewritePrompt, CodeMapperPromptProps } from './codeMapperPrompt';
 import { ICodeMapperTelemetryInfo } from './codeMapperService';
-import { findEdit, getCodeBlock, iterateSectionsForResponse, Marker, Patch, Section } from './patchEditGeneration';
+import { parseApplyPatchOperations, sanitizeDiffLines } from './patchEditGeneration';
 
 
 export type ICodeMapperDocument = TextDocumentSnapshot | NotebookDocumentSnapshot;
@@ -199,45 +199,75 @@ function extractCodeBlock(inputStream: AsyncIterable<IResponsePart>, token: Canc
 }
 
 export async function processPatchResponse(uri: URI, originalText: string | undefined, inputStream: AsyncIterable<IResponsePart>, outputStream: MappedEditsResponseStream, token: CancellationToken): Promise<void> {
-	let documentLines = originalText ? Lines.fromString(originalText) : [];
-	function processAndEmitPatch(patch: Patch) {
-		// Make sure it's valid, otherwise emit
-		if (equals(patch.find, patch.replace)) {
-			return;
-		}
-		const res = findEdit(documentLines, getCodeBlock(patch.find), getCodeBlock(patch.replace), 0);
+        let responseText = '';
+        for await (const part of inputStream) {
+                if (token.isCancellationRequested) {
+                        return;
+                }
+                responseText += part.delta.text;
+        }
 
-		if (res instanceof LinesEdit) {
-			outputStream.textEdit(uri, res.toTextEdit());
-			documentLines = res.apply(documentLines);
-		}
-	}
+        const { operations } = parseApplyPatchOperations(responseText);
+        const updateOperations = operations.filter(op => op.type === 'update');
+        if (!updateOperations.length) {
+                return;
+        }
 
-	let original, filePath;
-	const otherSections: Section[] = [];
-	for await (const section of iterateSectionsForResponse(inputStream)) {
-		switch (section.marker) {
-			case undefined:
-				break;
-			case Marker.FILEPATH:
-				filePath = section.content.join('\n').trim();
-				break;
-			case Marker.FIND:
-				original = section.content;
-				break;
-			case Marker.REPLACE: {
-				if (section.content && original && filePath) {
-					processAndEmitPatch({ filePath, find: original, replace: section.content });
-				}
-				break;
-			}
-			case Marker.COMPLETE:
-				break;
-			default:
-				otherSections.push(section);
-				break;
-		}
-	}
+        let documentLines = Lines.fromString(originalText ?? '');
+        const edits: TextEdit[] = [];
+
+        const normalizePath = (path: string): URI | undefined => {
+                try {
+                        const parsed = URI.parse(path);
+                        if (parsed.scheme) {
+                                return parsed;
+                        }
+                } catch {
+                        // fall through
+                }
+
+                if (uri.scheme && uri.scheme !== 'file') {
+                        try {
+                                return uri.with({ path });
+                        } catch {
+                                // fall through
+                        }
+                }
+
+                try {
+                        return URI.file(path);
+                } catch {
+                        return undefined;
+                }
+        };
+
+        const reporter: Reporter = {
+                recovery(_originalLine: number, _newLine: number) { /* ignore */ },
+                warning(_message: string) { /* ignore */ }
+        };
+
+        for (const operation of updateOperations) {
+                const normalized = normalizePath(operation.path);
+                if (!normalized || !isEqual(normalized, uri)) {
+                        continue;
+                }
+                const diffLines = sanitizeDiffLines(operation.diffLines ?? []);
+                if (!diffLines.length) {
+                        continue;
+                }
+                const lineEdits = createEditsFromRealDiff(documentLines, diffLines, reporter);
+                if (!lineEdits.length) {
+                        continue;
+                }
+                for (const lineEdit of lineEdits) {
+                        edits.push(lineEdit.toTextEdit());
+                        documentLines = lineEdit.apply(documentLines);
+                }
+        }
+
+        if (edits.length) {
+                outputStream.textEdit(uri, edits);
+        }
 }
 
 export interface ICodeMapperNewDocument {

@@ -29,10 +29,11 @@ export class ExtensionContributedChatEndpoint implements IChatEndpoint {
 	private readonly _maxTokens: number;
 	public readonly isDefault: boolean = false;
 	public readonly isFallback: boolean = false;
-	public readonly isPremium: boolean = false;
-	public readonly multiplier: number = 0;
-	public readonly isExtensionContributed = true;
-	public readonly supportedEditTools?: readonly EndpointEditToolName[] | undefined;
+        public readonly isPremium: boolean = false;
+        public readonly multiplier: number = 0;
+        public readonly isExtensionContributed = true;
+        public readonly supportedEditTools?: readonly EndpointEditToolName[] | undefined;
+        public readonly supportsThinking: boolean;
 
 	constructor(
 		private readonly languageModel: vscode.LanguageModelChat,
@@ -41,8 +42,10 @@ export class ExtensionContributedChatEndpoint implements IChatEndpoint {
 	) {
 		// Initialize with the model's max tokens
 		this._maxTokens = languageModel.maxInputTokens;
-		this.supportedEditTools = languageModel.capabilities.editToolsHint?.filter(isEndpointEditToolName);
-	}
+                this.supportedEditTools = languageModel.capabilities.editToolsHint?.filter(isEndpointEditToolName);
+                const extraCapabilities = (languageModel as { capabilities: vscode.LanguageModelChat['capabilities'] & { supportsThinking?: boolean; supportsReasoning?: boolean } }).capabilities;
+                this.supportsThinking = !!(extraCapabilities.supportsThinking ?? extraCapabilities.supportsReasoning);
+        }
 
 	get modelMaxPromptTokens(): number {
 		return this._maxTokens;
@@ -92,9 +95,9 @@ export class ExtensionContributedChatEndpoint implements IChatEndpoint {
 		return this.languageModel?.capabilities?.supportsImageToText ?? false;
 	}
 
-	get supportsPrediction(): boolean {
-		return false;
-	}
+        get supportsPrediction(): boolean {
+                return false;
+        }
 
 	get policy(): 'enabled' | { terms: string } {
 		return 'enabled';

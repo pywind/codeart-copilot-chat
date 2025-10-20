@@ -120,8 +120,12 @@ export class LanguageModelAccess extends Disposable implements IExtensionContrib
 			}
 			seenFamilies.add(endpoint.family);
 
-			const sanitizedModelName = endpoint.name.replace(/\(Preview\)/g, '').trim();
-			let modelDescription: string | undefined;
+                        const baseModelName = endpoint.model === AutoChatEndpoint.id ? 'Auto' : endpoint.name;
+                        const sanitizedModelName = baseModelName.replace(/\(Preview\)/g, '').trim();
+                        const supportsThinking = endpoint.supportsThinking;
+                        const thinkingNameSuffix = supportsThinking ? localize('languageModel.thinkingNameSuffix', '$(circuit-board) (thinking)') : '';
+                        const displayName = thinkingNameSuffix ? `${baseModelName} ${thinkingNameSuffix}` : baseModelName;
+                        let modelDescription: string | undefined;
 			if (endpoint.degradationReason) {
 				modelDescription = endpoint.degradationReason;
 			} else if (endpoint.model === AutoChatEndpoint.id) {
@@ -151,8 +155,8 @@ export class LanguageModelAccess extends Disposable implements IExtensionContrib
 
 			// Counting tokens requires instantiating the tokenizers, which makes this process use a lot of memory.
 			// Let's cache the results across extension activations
-			const baseCount = await this._promptBaseCountCache.getBaseCount(endpoint);
-			let modelDetail = endpoint.multiplier !== undefined ? `${endpoint.multiplier}x` : undefined;
+                        const baseCount = await this._promptBaseCountCache.getBaseCount(endpoint);
+                        let modelDetail = endpoint.multiplier !== undefined ? `${endpoint.multiplier}x` : undefined;
 
 			if (endpoint.model === AutoChatEndpoint.id) {
 				modelDetail = 'Variable';
@@ -164,14 +168,28 @@ export class LanguageModelAccess extends Disposable implements IExtensionContrib
 				modelCategory = { label: localize('languageModelHeader.custom_models', "Custom Models"), order: 2 };
 			}
 
-			const session = this._authenticationService.anyGitHubSession;
+                        if (supportsThinking) {
+                                const thinkingTooltip = localize('languageModel.thinkingTooltip', 'Supports reasoning with thinking output.');
+                                modelDescription = modelDescription ? `${modelDescription} ${thinkingTooltip}` : thinkingTooltip;
+                        }
 
-			const model: vscode.LanguageModelChatInformation = {
-				id: endpoint.model,
-				name: endpoint.model === AutoChatEndpoint.id ? 'Auto' : endpoint.name,
-				family: endpoint.family,
-				tooltip: modelDescription,
-				detail: modelDetail,
+                        const detailParts: string[] = [];
+                        if (modelDetail) {
+                                detailParts.push(modelDetail);
+                        }
+                        if (supportsThinking) {
+                                detailParts.push(localize('languageModel.thinkingDetail', '$(circuit-board) Thinking'));
+                        }
+                        const combinedModelDetail = detailParts.length ? detailParts.join(' • ') : undefined;
+
+                        const session = this._authenticationService.anyGitHubSession;
+
+                        const model: vscode.LanguageModelChatInformation = {
+                                id: endpoint.model,
+                                name: displayName,
+                                family: endpoint.family,
+                                tooltip: modelDescription,
+                                detail: combinedModelDetail,
 				category: modelCategory,
 				statusIcon: endpoint.degradationReason ? new vscode.ThemeIcon('warning') : undefined,
 				version: endpoint.version,

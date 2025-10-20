@@ -331,13 +331,17 @@ class StreamingPassThroughEndpoint implements IChatEndpoint {
 		return this.base.supportsToolCalls;
 	}
 
-	public get supportsVision(): boolean {
-		return this.base.supportsVision;
-	}
+        public get supportsVision(): boolean {
+                return this.base.supportsVision;
+        }
 
-	public get supportsPrediction(): boolean {
-		return this.base.supportsPrediction;
-	}
+        public get supportsPrediction(): boolean {
+                return this.base.supportsPrediction;
+        }
+
+        public get supportsThinking(): boolean {
+                return this.base.supportsThinking;
+        }
 
 	public get supportedEditTools(): readonly EndpointEditToolName[] | undefined {
 		return this.base.supportedEditTools;

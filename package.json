@@ -2210,10 +2210,26 @@
 				"icon": "$(link-external)"
 			}
 		],
-		"configuration": [
-			{
-				"title": "CodeArt Copilot Chat",
-				"id": "stable",
+                "configuration": [
+                        {
+                                "title": "MyAI",
+                                "id": "myai",
+                                "properties": {
+                                        "myai.apiBaseUrl": {
+                                                "type": "string",
+                                                "default": "",
+                                                "description": "Base URL for the MyAI HTTP API."
+                                        },
+                                        "myai.defaultModel": {
+                                                "type": "string",
+                                                "default": "",
+                                                "description": "Default MyAI model identifier to use for requests."
+                                        }
+                                }
+                        },
+                        {
+                                "title": "CodeArt Copilot Chat",
+                                "id": "stable",
 				"properties": {
 					"github.copilot.chat.codeGeneration.useInstructionFiles": {
 						"type": "boolean",

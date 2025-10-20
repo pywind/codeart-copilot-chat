@@ -89,8 +89,14 @@ export class StaticGitHubAuthenticationService extends BaseAuthenticationService
 }
 
 export function setCopilotToken(authenticationService: IAuthenticationService, token: CopilotToken): void {
-	if (!(authenticationService instanceof StaticGitHubAuthenticationService)) {
-		throw new Error('This function should only be used with StaticGitHubAuthenticationService');
-	}
-	(authenticationService as StaticGitHubAuthenticationService).setCopilotToken(token);
+        const maybeTestSetter = (authenticationService as unknown as { setCopilotTokenForTesting?: (token: CopilotToken) => void }).setCopilotTokenForTesting;
+        if (typeof maybeTestSetter === 'function') {
+                maybeTestSetter.call(authenticationService, token);
+                return;
+        }
+
+        if (!(authenticationService instanceof StaticGitHubAuthenticationService)) {
+                throw new Error('This function should only be used with StaticGitHubAuthenticationService');
+        }
+        (authenticationService as StaticGitHubAuthenticationService).setCopilotToken(token);
 }

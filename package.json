@@ -2343,10 +2343,31 @@
 						"description": "%github.copilot.config.agent.currentEditorContext.enabled%"
 					}
 				}
-			},
-			{
-				"id": "preview",
-				"properties": {
+                        },
+                        {
+                                "title": "MyAI",
+                                "id": "myai",
+                                "properties": {
+                                        "myai.enabled": {
+                                                "type": "boolean",
+                                                "default": false,
+                                                "markdownDescription": "%myai.config.enabled%"
+                                        },
+                                        "myai.endpoint": {
+                                                "type": "string",
+                                                "default": "",
+                                                "markdownDescription": "%myai.config.endpoint%"
+                                        },
+                                        "myai.defaultModel": {
+                                                "type": "string",
+                                                "default": "auto",
+                                                "markdownDescription": "%myai.config.defaultModel%"
+                                        }
+                                }
+                        },
+                        {
+                                "id": "preview",
+                                "properties": {
 					"github.copilot.chat.reviewAgent.enabled": {
 						"type": "boolean",
 						"default": true,

@@ -85,4 +85,4 @@ export function getAgentForIntent(intentId: Intent, location: ChatLocation): { a
 	}
 }
 
-export const EXTENSION_ID = 'CodeArt.codeart-copilot-chat';
+export const EXTENSION_ID = 'codeart-collective.codeart-studio-chat';

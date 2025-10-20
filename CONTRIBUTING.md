@@ -345,7 +345,7 @@ You can run the extension from Code OSS Desktop, provided that you follow along 
 {
    "defaultChatAgent": {
       "extensionId": "GitHub.copilot",
-      "chatExtensionId": "CodeArt.codeart-copilot-chat",
+      "chatExtensionId": "codeart-collective.codeart-studio-chat",
       "documentationUrl": "https://aka.ms/github-copilot-overview",
       "termsStatementUrl": "https://aka.ms/github-copilot-terms-statement",
       "privacyStatementUrl": "https://aka.ms/github-copilot-privacy-statement",
@@ -430,7 +430,7 @@ Object.assign(product, {
 		serverLicenseUrl: 'https://github.com/microsoft/vscode/blob/main/LICENSE.txt',
 		defaultChatAgent: {
 			'extensionId': 'GitHub.copilot',
-                    'chatExtensionId': 'CodeArt.codeart-copilot-chat',
+                    'chatExtensionId': 'codeart-collective.codeart-studio-chat',
 			'documentationUrl': 'https://aka.ms/github-copilot-overview',
 			'termsStatementUrl': 'https://aka.ms/github-copilot-terms-statement',
 			'privacyStatementUrl': 'https://aka.ms/github-copilot-privacy-statement',

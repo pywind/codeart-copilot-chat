@@ -9,7 +9,7 @@ export class WalkthroughCommandContribution extends Disposable {
 	constructor() {
 		super();
 		this._register(vscode.commands.registerCommand('github.copilot.open.walkthrough', () => {
-			vscode.commands.executeCommand('workbench.action.openWalkthrough', { category: 'GitHub.copilot-chat#copilotWelcome' }, /* toSide */ false);
+                    vscode.commands.executeCommand('workbench.action.openWalkthrough', { category: 'CodeArt.codeart-copilot-chat#copilotWelcome' }, /* toSide */ false);
 		}));
 
 		this._register(vscode.commands.registerCommand('github.copilot.mcp.viewContext7', () => {

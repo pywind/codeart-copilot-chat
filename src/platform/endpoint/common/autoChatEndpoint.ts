@@ -24,11 +24,12 @@ import { TelemetryData } from '../../telemetry/common/telemetryData';
  */
 export class AutoChatEndpoint implements IChatEndpoint {
 	public static readonly id = 'auto';
-	maxOutputTokens: number = this._wrappedEndpoint.maxOutputTokens;
-	model: string = AutoChatEndpoint.id;
-	supportsToolCalls: boolean = this._wrappedEndpoint.supportsToolCalls;
-	supportsVision: boolean = this._wrappedEndpoint.supportsVision;
-	supportsPrediction: boolean = this._wrappedEndpoint.supportsPrediction;
+        maxOutputTokens: number = this._wrappedEndpoint.maxOutputTokens;
+        model: string = AutoChatEndpoint.id;
+        supportsToolCalls: boolean = this._wrappedEndpoint.supportsToolCalls;
+        supportsVision: boolean = this._wrappedEndpoint.supportsVision;
+        supportsPrediction: boolean = this._wrappedEndpoint.supportsPrediction;
+        supportsThinking: boolean = this._wrappedEndpoint.supportsThinking;
 	showInModelPicker: boolean = true;
 	isPremium?: boolean | undefined = this._wrappedEndpoint.isPremium;
 	public readonly multiplier?: number | undefined;

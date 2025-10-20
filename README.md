@@ -10,7 +10,7 @@ GitHub Copilot adapts to your unique needs allowing you to select the best model
 
 When you install Copilot in Visual Studio Code, you get two extensions:
 * **[GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)** - Provides inline coding suggestions as you type.
-* **[GitHub Copilot Chat](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-chat)** (this extension) - A companion extension that provides conversational AI assistance.
+* **CodeArt Copilot Chat** (this extension) - A companion extension that provides conversational AI assistance without conflicting with the Marketplace version.
 
 ## Getting access to GitHub Copilot
 
@@ -71,6 +71,61 @@ To get the latest security fixes, please use the latest version of the Copilot e
 ## Data and telemetry
 
 This fork disables all telemetry integrations that were present in the original extension. No usage data is collected or transmitted when using this build.
+
+## Building and running from source
+
+Follow the steps below if you want to hack on the Copilot Chat extension locally or produce a VSIX for testing.
+
+### Prerequisites
+
+* **Node.js** `>= 22.14.0` and **npm** `>= 9.0.0` (the versions enforced by the repository's [`engines`](package.json))
+* **Visual Studio Code** `1.106.0` or newer for running and debugging the extension
+* The platform tooling required by Node.js (Python and C/C++ build tools) if you're on Windows
+
+### Install dependencies
+
+1. Clone this repository and open it in VS Code.
+2. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+### Build the extension
+
+* For a fast, development-friendly build (includes source maps), run:
+
+  ```bash
+  npm run compile
+  ```
+
+* To produce an optimized production bundle (used for packaging), run:
+
+  ```bash
+  npm run build
+  ```
+
+### Run the extension in VS Code
+
+1. In VS Code, open the **Run and Debug** view.
+2. Select the **Run Extension** launch configuration and press **F5**. This starts a new Extension Development Host with the compiled Copilot Chat extension loaded.
+3. The extension will rebuild automatically if you keep `npm run watch` running in a terminal while you develop.
+
+Alternatively, from the command line you can launch an Extension Development Host directly after compiling:
+
+```bash
+code --extensionDevelopmentPath="$(pwd)"
+```
+
+### Package a VSIX (optional)
+
+To generate an installable `.vsix`, run:
+
+```bash
+npm run package
+```
+
+The packaged VSIX will be emitted into the `build` directory.
 
 ## Trademarks
 

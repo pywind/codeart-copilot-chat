@@ -59,13 +59,17 @@ export class ProxyExperimentEndpoint implements IChatEndpoint {
 		return this.selectedEndpoint.supportsVision;
 	}
 
-	get supportsPrediction(): boolean {
-		return this.selectedEndpoint.supportsPrediction;
-	}
+        get supportsPrediction(): boolean {
+                return this.selectedEndpoint.supportsPrediction;
+        }
 
-	get isPremium(): boolean | undefined {
-		return this.selectedEndpoint.isPremium;
-	}
+        get supportsThinking(): boolean {
+                return this.selectedEndpoint.supportsThinking;
+        }
+
+        get isPremium(): boolean | undefined {
+                return this.selectedEndpoint.isPremium;
+        }
 
 	get multiplier(): number | undefined {
 		return this.selectedEndpoint.multiplier;

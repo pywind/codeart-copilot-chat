@@ -29,7 +29,7 @@ import { BaseTokensPerCompletion } from '../../../platform/tokenizer/node/tokeni
 import { TelemetryCorrelationId } from '../../../util/common/telemetryCorrelationId';
 import { Emitter } from '../../../util/vs/base/common/event';
 import { Disposable } from '../../../util/vs/base/common/lifecycle';
-import { isDefined, isNumber, isString, isStringArray } from '../../../util/vs/base/common/types';
+import { isDefined, isNumber, isObject, isString, isStringArray } from '../../../util/vs/base/common/types';
 import { localize } from '../../../util/vs/nls';
 import { IInstantiationService } from '../../../util/vs/platform/instantiation/common/instantiation';
 import { ExtensionMode } from '../../../vscodeTypes';
@@ -593,19 +593,24 @@ export class CopilotLanguageModelWrapper extends Disposable {
 }
 
 
-function or(...checks: ((value: any) => boolean)[]): (value: any) => boolean {
-	return (value) => checks.some(check => check(value));
-}
-
 class LanguageModelOptions {
 
-	private static _defaultDesc: Record<string, (value: any) => boolean> = {
-		stop: or(isStringArray, isString),
-		temperature: isNumber,
-		max_tokens: isNumber,
-		frequency_penalty: isNumber,
-		presence_penalty: isNumber,
-	};
+        private static _defaultDesc: Record<string, (value: any) => boolean> = {
+                stop: or(isStringArray, isString),
+                temperature: isNumber,
+                max_tokens: isNumber,
+                frequency_penalty: isNumber,
+                presence_penalty: isNumber,
+                top_p: isNumber,
+                n: isNumber,
+                logit_bias: isNumber,
+                prediction: isObject,
+                stream: (value) => typeof value === 'boolean',
+                stream_options: isObject,
+                logprobs: (value) => typeof value === 'boolean',
+                previous_response_id: isString,
+                tool_choice: () => true,
+        };
 
 	static Default = new LanguageModelOptions({ ...this._defaultDesc });
 
@@ -622,4 +627,8 @@ class LanguageModelOptions {
 		}
 		return result;
 	}
+}
+
+function or(...checks: ((value: any) => boolean)[]): (value: any) => boolean {
+        return (value) => checks.some(check => check(value));
 }

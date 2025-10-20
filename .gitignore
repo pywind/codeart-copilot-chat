@@ -33,4 +33,5 @@ coverage/
 test/simulation/cache/_base.sqlite
 
 test/aml/out
+build/*.vsix
 src/extension/completions-core

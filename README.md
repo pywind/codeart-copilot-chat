@@ -12,6 +12,10 @@ When you install Copilot in Visual Studio Code, you get two extensions:
 * **[GitHub Copilot](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)** - Provides inline coding suggestions as you type.
 * **CodeArt Copilot Chat** (this extension) - A companion extension that provides conversational AI assistance without conflicting with the Marketplace version.
 
+## Migration guide
+
+If you're switching from the Marketplace version of GitHub Copilot Chat, follow the step-by-step [migration guide](docs/migration.md) to install this fork and understand when API keys are required.
+
 ## Getting access to GitHub Copilot
 
 Sign up for [GitHub Copilot Free](https://github.com/settings/copilot?utm_source=vscode-chat-readme&utm_medium=second&utm_campaign=2025mar-em-MSFT-signup), or request access from your enterprise admin.

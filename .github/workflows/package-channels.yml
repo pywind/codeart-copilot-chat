@@ -1,0 +1,38 @@
+name: Package VSIX (Stable & Insiders)
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    name: Package ${{ matrix.channel }} channel
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        channel: [stable, insiders]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build VSIX
+        run: npm run package:${{ matrix.channel }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: codeart-copilot-chat-${{ matrix.channel }}-${{ github.ref_name || github.sha }}
+          path: build/codeart-copilot-chat-${{ matrix.channel }}.vsix
+          if-no-files-found: error

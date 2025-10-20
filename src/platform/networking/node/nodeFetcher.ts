@@ -6,17 +6,20 @@
 import * as http from 'http';
 import * as https from 'https';
 import { IEnvService } from '../../env/common/envService';
+import { Lazy } from '../../../util/vs/base/common/lazy';
 import { FetchOptions, IAbortController, IHeaders, Response } from '../common/fetcherService';
 import { IFetcher, userAgentLibraryHeader } from '../common/networking';
 
 export class NodeFetcher implements IFetcher {
 
-	constructor(
-		private readonly _envService: IEnvService,
+        private readonly _insecureAgent = new Lazy(() => new https.Agent({ rejectUnauthorized: false }));
 
-		private readonly _userAgentLibraryUpdate?: (original: string) => string,
-	) {
-	}
+        constructor(
+                private readonly _envService: IEnvService,
+                private readonly _shouldDisableStrictSSL?: () => boolean,
+                private readonly _userAgentLibraryUpdate?: (original: string) => string,
+        ) {
+        }
 
 	getUserAgentLibrary(): string {
 		return 'node-http';
@@ -49,10 +52,15 @@ export class NodeFetcher implements IFetcher {
 		return this._fetch(url, method, headers, body, signal);
 	}
 
-	private _fetch(url: string, method: 'GET' | 'POST', headers: { [name: string]: string }, body: string | undefined, signal: AbortSignal): Promise<Response> {
-		return new Promise((resolve, reject) => {
-			const module = url.startsWith('https:') ? https : http;
-			const req = module.request(url, { method, headers }, res => {
+        private _fetch(url: string, method: 'GET' | 'POST', headers: { [name: string]: string }, body: string | undefined, signal: AbortSignal): Promise<Response> {
+                return new Promise((resolve, reject) => {
+                        const module = url.startsWith('https:') ? https : http;
+                        const requestOptions: https.RequestOptions | http.RequestOptions = { method, headers };
+                        if (module === https && this._shouldDisableStrictSSL?.()) {
+                                (requestOptions as https.RequestOptions).agent = this._insecureAgent.value;
+                                (requestOptions as https.RequestOptions).rejectUnauthorized = false;
+                        }
+                        const req = module.request(url, requestOptions, res => {
 				if (signal.aborted) {
 					res.destroy();
 					req.destroy();

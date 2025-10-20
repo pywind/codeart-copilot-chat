@@ -54,9 +54,9 @@ export class LoggingActionsContrib {
 		@IFetcherService private readonly fetcherService: IFetcherService,
 		@ILogService private logService: ILogService,
 	) {
-		this._context.subscriptions.push(vscode.commands.registerCommand('github.copilot.debug.collectDiagnostics', async () => {
-			const document = await vscode.workspace.openTextDocument({ language: 'markdown' });
-			const editor = await vscode.window.showTextDocument(document);
+                this._context.subscriptions.push(vscode.commands.registerCommand('github.copilot.debug.collectDiagnostics', async () => {
+                        const document = await vscode.workspace.openTextDocument({ language: 'markdown' });
+                        const editor = await vscode.window.showTextDocument(document);
 			const electronConfig = getShadowedConfig<boolean>(this.configurationService, this.experimentationService, ConfigKey.Shared.DebugUseElectronFetcher, ConfigKey.Internal.DebugExpUseElectronFetcher);
 			const nodeConfig = getShadowedConfig<boolean>(this.configurationService, this.experimentationService, ConfigKey.Shared.DebugUseNodeFetcher, ConfigKey.Internal.DebugExpUseNodeFetcher);
 			const nodeFetchConfig = getShadowedConfig<boolean>(this.configurationService, this.experimentationService, ConfigKey.Shared.DebugUseNodeFetchFetcher, ConfigKey.Internal.DebugExpUseNodeFetchFetcher);
@@ -93,12 +93,12 @@ User Settings:
 					fetcher: electronFetcher,
 					current: electronCurrent,
 				},
-				['Node.js https']: {
-					fetcher: new NodeFetcher(this.envService),
+                                ['Node.js https']: {
+                                        fetcher: new NodeFetcher(this.envService, () => this.configurationService.getConfig(ConfigKey.Shared.DisableStrictSSL)),
 					current: nodeCurrent || nodeCurrentFallback,
 				},
-				['Node.js fetch']: {
-					fetcher: new NodeFetchFetcher(this.envService),
+                                ['Node.js fetch']: {
+                                        fetcher: new NodeFetchFetcher(this.envService, () => this.configurationService.getConfig(ConfigKey.Shared.DisableStrictSSL)),
 					current: nodeFetchCurrent,
 				},
 			};
@@ -215,8 +215,151 @@ User Settings:
 ## Documentation
 
 In corporate networks: [Troubleshooting firewall settings for GitHub Copilot](https://docs.github.com/en/copilot/troubleshooting-github-copilot/troubleshooting-firewall-settings-for-github-copilot).`);
-		}));
-	}
+                }));
+
+                this._context.subscriptions.push(vscode.commands.registerCommand('github.copilot.chat.configureProxy', async () => {
+                        await this.configureProxySettings();
+                }));
+
+                this._context.subscriptions.push(vscode.commands.registerCommand('github.copilot.chat.testProxyConnection', async () => {
+                        await this.runProxyConnectionTest();
+                }));
+        }
+
+        private async configureProxySettings(): Promise<void> {
+                type ProxyAction = 'proxy' | 'strict' | 'test' | 'done';
+                let continueConfig = true;
+                while (continueConfig) {
+                        const disableStrictSSL = this.configurationService.getConfig(ConfigKey.Shared.DisableStrictSSL);
+                        const proxyUrl = this.configurationService.getConfig(ConfigKey.Shared.DebugOverrideProxyUrl) ?? '';
+                        const items: (vscode.QuickPickItem & { id: ProxyAction })[] = [
+                                {
+                                        id: 'proxy',
+                                        label: vscode.l10n.t('Set Copilot proxy URL'),
+                                        description: proxyUrl ? proxyUrl : vscode.l10n.t('Not configured'),
+                                },
+                                {
+                                        id: 'strict',
+                                        label: disableStrictSSL ? vscode.l10n.t('Enable strict SSL validation') : vscode.l10n.t('Disable strict SSL validation'),
+                                        description: disableStrictSSL ? vscode.l10n.t('Currently disabled') : vscode.l10n.t('Currently enabled'),
+                                        detail: disableStrictSSL ? undefined : vscode.l10n.t('Not recommended unless Copilot must trust a custom proxy certificate.'),
+                                },
+                                {
+                                        id: 'test',
+                                        label: vscode.l10n.t('Test Copilot connection'),
+                                        description: vscode.l10n.t('Verify connectivity using the current proxy settings'),
+                                },
+                                {
+                                        id: 'done',
+                                        label: vscode.l10n.t('Done'),
+                                }
+                        ];
+
+                        const selection = await vscode.window.showQuickPick(items, {
+                                placeHolder: vscode.l10n.t('Configure Copilot network overrides'),
+                        });
+
+                        if (!selection) {
+                                continueConfig = false;
+                                break;
+                        }
+
+                        switch (selection.id) {
+                                case 'proxy': {
+                                        const newValue = await vscode.window.showInputBox({
+                                                title: vscode.l10n.t('Copilot proxy URL'),
+                                                prompt: vscode.l10n.t('Enter the proxy that Copilot should use (leave empty to reset).'),
+                                                placeHolder: 'https://proxy.example.com:3128',
+                                                ignoreFocusLost: true,
+                                                value: proxyUrl,
+                                                validateInput: value => this.validateProxyUrl(value),
+                                        });
+                                        if (newValue !== undefined) {
+                                                const trimmed = newValue.trim();
+                                                await this.configurationService.updateValue(ConfigKey.Shared.DebugOverrideProxyUrl.fullyQualifiedId, trimmed ? trimmed : undefined, vscode.ConfigurationTarget.Global);
+                                                this.logService.info(`[network] Copilot proxy URL ${trimmed ? 'set' : 'cleared'}.`);
+                                        }
+                                        break;
+                                }
+                                case 'strict': {
+                                        if (!disableStrictSSL) {
+                                                const disableLabel = vscode.l10n.t('Disable strict SSL');
+                                                const warningResult = await vscode.window.showWarningMessage(
+                                                        vscode.l10n.t('Disabling strict SSL allows Copilot to ignore certificate errors when connecting through the configured proxy.'),
+                                                        { modal: true, detail: vscode.l10n.t('Only disable this option for proxies you control and trust.') },
+                                                        disableLabel,
+                                                        vscode.l10n.t('Cancel'),
+                                                );
+                                                if (warningResult === disableLabel) {
+                                                        await this.configurationService.updateValue(ConfigKey.Shared.DisableStrictSSL.fullyQualifiedId, true, vscode.ConfigurationTarget.Global);
+                                                        this.logService.warn('[network] Strict SSL disabled for Copilot requests.');
+                                                        vscode.window.showInformationMessage(vscode.l10n.t('Strict SSL has been disabled for Copilot network requests.'));
+                                                }
+                                        } else {
+                                                await this.configurationService.updateValue(ConfigKey.Shared.DisableStrictSSL.fullyQualifiedId, false, vscode.ConfigurationTarget.Global);
+                                                this.logService.info('[network] Strict SSL re-enabled for Copilot requests.');
+                                                vscode.window.showInformationMessage(vscode.l10n.t('Strict SSL has been re-enabled for Copilot network requests.'));
+                                        }
+                                        break;
+                                }
+                                case 'test':
+                                        await this.runProxyConnectionTest();
+                                        break;
+                                case 'done':
+                                        continueConfig = false;
+                                        break;
+                        }
+                }
+        }
+
+        private async runProxyConnectionTest(): Promise<void> {
+                const target = this.capiClientService.capiPingURL;
+                try {
+                        const outcome = await vscode.window.withProgress<{ ok: boolean; status: number; statusText: string; elapsed: number }>(
+                                {
+                                        location: vscode.ProgressLocation.Notification,
+                                        title: vscode.l10n.t('Testing Copilot connection...'),
+                                },
+                                async () => {
+                                        const start = Date.now();
+                                        const response = await this.fetcherService.fetch(target, { method: 'GET' });
+                                        const elapsed = Date.now() - start;
+                                        return { ok: response.status >= 200 && response.status < 300, status: response.status, statusText: response.statusText, elapsed };
+                                }
+                        );
+
+                        const proxyUrl = this.configurationService.getConfig(ConfigKey.Shared.DebugOverrideProxyUrl);
+                        const proxyLabel = proxyUrl ? proxyUrl : vscode.l10n.t('system proxy settings');
+                        if (outcome.ok) {
+                                vscode.window.showInformationMessage(vscode.l10n.t('Successfully reached Copilot in {0} ms using {1}.', outcome.elapsed, proxyLabel));
+                        } else {
+                                vscode.window.showErrorMessage(vscode.l10n.t('Copilot responded with HTTP {0} ({1}) when using {2}.', outcome.status, outcome.statusText, proxyLabel));
+                        }
+                } catch (err) {
+                        this.logService.error(err);
+                        const message = collectErrorMessages(err);
+                        vscode.window.showErrorMessage(vscode.l10n.t('Proxy test failed: {0}', message));
+                }
+        }
+
+        private validateProxyUrl(value: string): string | undefined {
+                const trimmed = value.trim();
+                if (!trimmed) {
+                        return undefined;
+                }
+                try {
+                        const parsed = new URL(trimmed);
+                        if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+                                return vscode.l10n.t('Only HTTP or HTTPS proxy URLs are supported.');
+                        }
+                        if (!parsed.hostname) {
+                                return vscode.l10n.t('Proxy URL must include a hostname.');
+                        }
+                } catch (_err) {
+                        return vscode.l10n.t('Enter a valid URL such as https://proxy.example.com:3128.');
+                }
+                return undefined;
+        }
 }
 
 async function appendText(editor: vscode.TextEditor, string: string) {
@@ -408,7 +551,7 @@ export function collectFetcherTelemetry(accessor: ServicesAccessor, error: any):
 		const fetchers = [
 			ElectronFetcher.create(envService, userAgentLibraryUpdate),
 			new NodeFetchFetcher(envService, userAgentLibraryUpdate),
-			new NodeFetcher(envService, userAgentLibraryUpdate),
+                        new NodeFetcher(envService, () => this.configurationService.getConfig(ConfigKey.Shared.DisableStrictSSL), userAgentLibraryUpdate),
 		].filter(fetcher => fetcher) as IFetcher[];
 
 		// Randomize to offset any order dependency in telemetry.
